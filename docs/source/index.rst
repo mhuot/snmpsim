@@ -32,7 +32,7 @@ centralized management and monitoring purposes.
 .. toctree::
    :maxdepth: 2
 
-   /documentation/contents.rst
+   /documentation/index.rst
 
 Source code & Changelog
 -----------------------
