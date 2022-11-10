@@ -2,7 +2,7 @@
 # This file is part of snmpsim software.
 #
 # Copyright (c) 2010-2019, Ilya Etingof <etingof@gmail.com>
-# License: http://snmplabs.com/snmpsim/license.html
+# License: https://www.pysnmp.com/snmpsim/license.html
 #
 """SNMP Agents simulator
 
@@ -74,7 +74,7 @@ params.update(
      'maintainer': 'Ilya Etingof <etingof@gmail.com>',
      'author': 'Ilya Etingof',
      'author_email': 'etingof@gmail.com',
-     'url': 'http://snmplabs.com/snmpsim',
+     'url': 'https://www.pysnmp.com/snmpsim',
      'license': 'BSD',
      'platforms': ['any'],
      'classifiers': [x for x in classifiers.split('\n') if x],

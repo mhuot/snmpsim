@@ -62,21 +62,21 @@ file path as SNMPv1/v2c community name or SNMPv3 context name.
 
 If you don't readily have some SNMP agent to play with, you're welcome to
 use our publicly available
-`SNMP Simulator instance <http://snmplabs.com/snmp-simulation-service.html>`_.
+`SNMP Simulator instance <https://www.pysnmp.com/snmp-simulation-service.html>`_.
 
 .. code-block:: bash
 
-    $ snmpsim-record-commands --agent-udpv4-endpoint=demo.snmplabs.com \
+    $ snmpsim-record-commands --agent-udpv4-endpoint=demo.pysnmp.com \
         --community=public
     SNMP version 2c, Community name: public
     Querying UDP/IPv4 agent at 195.218.195.228:161
     Sending initial GETNEXT request....
-    1.3.6.1.2.1.1.1.0|4|SunOS zeus.snmplabs.com 4.1.3_U1 1 sun4m
+    1.3.6.1.2.1.1.1.0|4|SunOS zeus.pysnmp.com 4.1.3_U1 1 sun4m
     1.3.6.1.2.1.1.2.0|6|1.3.6.1.4.1.20408
     1.3.6.1.2.1.1.3.0|67|137765775
-    1.3.6.1.2.1.1.4.0|4|SNMP Laboratories, info@snmplabs.com
-    1.3.6.1.2.1.1.5.0|4|zeus.snmplabs.com
-    1.3.6.1.2.1.1.6.0|4|San Francisco, California, United States
+    1.3.6.1.2.1.1.4.0|4|LeXtudio Inc., support@lextudio.com
+    1.3.6.1.2.1.1.5.0|4|zeus.pysnmp.com
+    1.3.6.1.2.1.1.6.0|4|Toronto, Ontario, Canada
     ...
     1.3.6.1.2.1.11.31.0|65|0
     1.3.6.1.2.1.11.32.0|65|0

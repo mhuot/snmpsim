@@ -2,7 +2,7 @@
 # This file is part of snmpsim software.
 #
 # Copyright (c) 2010-2019, Ilya Etingof <etingof@gmail.com>
-# License: http://snmplabs.com/snmpsim/license.html
+# License: https://www.pysnmp.com/snmpsim/license.html
 #
 # Managed value variation module: simulate a writable Agent using
 # noSQL backend (Redis) for storing Managed Objects

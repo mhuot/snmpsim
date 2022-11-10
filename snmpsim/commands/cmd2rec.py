@@ -2,7 +2,7 @@
 # This file is part of snmpsim software.
 #
 # Copyright (c) 2010-2019, Ilya Etingof <etingof@gmail.com>
-# License: http://snmplabs.com/snmpsim/license.html
+# License: https://www.pysnmp.com/snmpsim/license.html
 #
 # SNMP Snapshot Data Recorder
 #
@@ -204,7 +204,7 @@ def main():
     parser.add_argument(
         '--mib-source', dest='mib_sources', metavar='<URI|PATH>',
         action='append', type=str,
-        default=['http://mibs.snmplabs.com/asn1/@mib@'],
+        default=['http://mibs.pysnmp.com/asn1/@mib@'],
         help='One or more URIs pointing to a collection of ASN.1 MIB files.'
              'Optional "@mib@" token gets replaced with desired MIB module '
              'name during MIB search.')

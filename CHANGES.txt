@@ -53,6 +53,11 @@ Revision 1.0.0, released XX-12-2019
   collectors e.g. Graphite/Carbon or store it in some other format
   e.g. Prometheus.
 
+Revision 0.4.9, released XX-11-2022
+-----------------------------------
+
+- Changed web site to pysnmp.com.
+
 Revision 0.4.8, released XX-08-2019
 -----------------------------------
 

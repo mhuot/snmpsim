@@ -209,11 +209,11 @@ Examples
     1.3.6.1.2.1.2.2.1.14.1|66:numeric|min=5,max=50,initial=25
 
 You are welcome to try the *numeric* module in action at our online
-`public SNMP simulation service <http://snmplabs.com/snmp-simulation-service.html>`_:
+`public SNMP simulation service <https://www.pysnmp.com/snmp-simulation-service.html>`_:
 
 .. code-block:: bash
 
-    $ snmpget -v2c -c variation/virtualtable demo.snmplabs.com  \
+    $ snmpget -v2c -c variation/virtualtable demo.pysnmp.com  \
         IF-MIB::ifLastChange.1 IF-MIB::ifInOctets.1
     IF-MIB::ifLastChange.1 = Timeticks: (16808012) 1 day, 22:41:20.12
     IF-MIB::ifInOctets.1 = Counter32: 30374688

@@ -40,9 +40,9 @@ which are usually shipped along with your operating system:
    SNMPv2-MIB::sysDescr.0 = STRING: Linux zeus 4.8.6.5-smp #2 SMP Sun Nov 13 14:58:11 CDT 2016 i686
    SNMPv2-MIB::sysObjectID.0 = OID: NET-SNMP-MIB::netSnmpAgentOIDs.10
    DISMAN-EVENT-MIB::sysUpTimeInstance = Timeticks: (126714301) 14 days, 15:59:03.01
-   SNMPv2-MIB::sysContact.0 = STRING: SNMP Laboratories, info@snmplabs.com
+   SNMPv2-MIB::sysContact.0 = STRING: LeXtudio Inc., support@lextudio.com
    SNMPv2-MIB::sysName.0 = STRING: new system name
-   SNMPv2-MIB::sysLocation.0 = STRING: San Francisco, California, United States
+   SNMPv2-MIB::sysLocation.0 = STRING: Toronto, Ontario, Canada
    SNMPv2-MIB::sysServices.0 = INTEGER: 72
    SNMPv2-MIB::sysORLastChange.0 = Timeticks: (126714455) 14 days, 15:59:04.55
 
@@ -72,7 +72,7 @@ as a donor device:
 
 .. code-block:: bash
 
-   $ snmpsim-record-commands --agent-udpv4-endpoint=demo.snmplabs.com \
+   $ snmpsim-record-commands --agent-udpv4-endpoint=demo.pysnmp.com \
         --output-file=./data/public.snmprec
    SNMP version 2c, Community name: public
    Querying UDP/IPv4 agent at 195.218.195.228:161

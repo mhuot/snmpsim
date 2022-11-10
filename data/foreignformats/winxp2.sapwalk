@@ -1,9 +1,9 @@
 1.3.6.1.2.1.1.1.0             , OctetString , Hardware: x86 Family 6 Model 9 Stepping 5 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.1 (Build 2600 Uniprocessor Free)
 1.3.6.1.2.1.1.2.0             , ObjectID    , 1.3.6.1.4.1.311.1.1.3.1.1
 1.3.6.1.2.1.1.3.0             , TimeTicks   , 200846
-1.3.6.1.2.1.1.4.0             , OctetString , info@snmplabs.com
+1.3.6.1.2.1.1.4.0             , OctetString , support@lextudio.com
 1.3.6.1.2.1.1.5.0             , OctetString , CRAY
-1.3.6.1.2.1.1.6.0             , OctetString , Moscow, Russia
+1.3.6.1.2.1.1.6.0             , OctetString , Toronto, Canada
 1.3.6.1.2.1.1.7.0             , Integer     , 76
 1.3.6.1.2.1.2.1.0             , Integer     , 3
 1.3.6.1.2.1.2.2.1.1.1         , Integer     , 1

@@ -2,7 +2,7 @@
 # This file is part of snmpsim software.
 #
 # Copyright (c) 2010-2019, Ilya Etingof <etingof@gmail.com>
-# License: http://snmplabs.com/snmpsim/license.html
+# License: https://www.pysnmp.com/snmpsim/license.html
 #
 # SNMP Simulator data file management tool
 #
@@ -69,7 +69,7 @@ RECORD_TYPES = {
 }
 
 DESCRIPTION = 'SNMP simulation data management and repair tool. Online ' \
-              'documentation at http://snmplabs.com/snmpsim'
+              'documentation at https://www.pysnmp.com/snmpsim'
 
 
 def _parse_mib_object(arg, last=False):
@@ -152,7 +152,7 @@ def main():
     args = parser.parse_args()
 
     if not args.mib_source:
-        args.mib_source = ['http://mibs.snmplabs.com/asn1/@mib@']
+        args.mib_source = ['http://mibs.pysnmp.com/asn1/@mib@']
 
     args.input_files = [
         RECORD_TYPES[args.source_record_type].open(x)

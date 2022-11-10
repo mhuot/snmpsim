@@ -72,7 +72,7 @@ tool will be used.
 
 .. code-block:: bash
 
-    $ snmpsim-record-commands --agent-udpv4-endpoint=demo.snmplabs.com \
+    $ snmpsim-record-commands --agent-udpv4-endpoint=demo.pysnmp.com \
       --start-oid=1.3.6.1.2.1.2 --stop-oid=1.3.6.1.2.1.3 \
       --variation-module=numeric \
       --variation-module-options=taglist:65,iterations:2,period:15 \
@@ -80,7 +80,7 @@ tool will be used.
     modules...numeric module loaded
     SNMP version 2c
     Community name: public
-    Querying UDP/IPv4 agent at demo.snmplabs.com:161
+    Querying UDP/IPv4 agent at demo.pysnmp.com:161
     Initializing variation module:
         numeric...OK
     numeric: waiting 0.77 sec(s), 111 OIDs dumped, 1 iterations remaining...
@@ -118,14 +118,14 @@ Examples
 
 .. code-block:: bash
 
-    $ snmpsim-record-commands --agent-udpv4-endpoint=demo.snmplabs.com \
+    $ snmpsim-record-commands --agent-udpv4-endpoint=demo.pysnmp.com \
       --start-oid=1.3.6.1.2.1.2 --stop-oid=1.3.6.1.2.1.3 \
       --variation-module=delay
     Scanning "/usr/local/share/snmpsim/variation" directory for variation
     modules...delay module loaded
     SNMP version 2c
     Community name: public
-    Querying UDP/IPv4 agent at demo.snmplabs.com:161
+    Querying UDP/IPv4 agent at demo.pysnmp.com:161
     Initializing variation module:
         delay...OK
     1.3.6.1.2.1.2.1.0|2:delay|value=5,wait=8
@@ -168,7 +168,7 @@ Examples
 
 .. code-block:: bash
 
-    $ snmpsim-record-commands --agent-udpv4-endpoint=demo.snmplabs.com \
+    $ snmpsim-record-commands --agent-udpv4-endpoint=demo.pysnmp.com \
       --start-oid=1.3.6.1.2.1.2 --stop-oid=1.3.6.1.2.1.3 \
       --output-file=data/multiplex.snmprec \
       --variation-module=multiplex \
@@ -176,7 +176,7 @@ Examples
     Scanning "/usr/local/share/snmpsim/variation" directory for variation modules...multiplex module loaded
     SNMP version 2c
     Community name: public
-    Querying UDP/IPv4 agent at demo.snmplabs.com:161
+    Querying UDP/IPv4 agent at demo.pysnmp.com:161
     Initializing variation module:
         multiplex...OK
     multiplex: writing into data/multiplex/00000.snmprec file...
@@ -222,7 +222,7 @@ Running with SQLite DB backend:
 
 .. code-block:: bash
 
-    $ snmpsim-record-commands --agent-udpv4-endpoint=demo.snmplabs.com
+    $ snmpsim-record-commands --agent-udpv4-endpoint=demo.pysnmp.com
       --start-oid=1.3.6.1.2.1.2 --stop-oid=1.3.6.1.2.1.3
       --output-file=data/sql.snmprec
       --variation-module=sql
@@ -230,7 +230,7 @@ Running with SQLite DB backend:
     Scanning "/usr/local/share/snmpsim/variation" directory for variation modules... sql module loaded
     SNMP version 2c
     Community name: public
-    Querying UDP/IPv4 agent at demo.snmplabs.com:161
+    Querying UDP/IPv4 agent at demo.pysnmp.com:161
     Initializing variation module:
         sql...OK
     Shutting down variation modules:
@@ -270,7 +270,7 @@ driver:
 
 .. code-block:: bash
 
-    $ snmpsim-record-commands --agent-udpv4-endpoint=demo.snmplabs.com \
+    $ snmpsim-record-commands --agent-udpv4-endpoint=demo.pysnmp.com \
       --output-file=data/sql.snmprec \
       --variation-module=sql \
       --variation-module-options=dbtype:mysql.connector,host:127.0.0.1, \
@@ -289,7 +289,7 @@ might work:
 
 .. code-block:: bash
 
-    $ snmpsim-record-commands --agent-udpv4-endpoint=demo.snmplabs.com \
+    $ snmpsim-record-commands --agent-udpv4-endpoint=demo.pysnmp.com \
       --output-file=data/sql.snmprec \
       --variation-module=sql
       --variation-module-options=dbtype:mysql.connector,unix_socket: \
@@ -300,7 +300,7 @@ package could be used for SNMP Simulator's MySQL connection:
 
 .. code-block:: bash
 
-    $ snmpsim-record-commands --agent-udpv4-endpoint=demo.snmplabs.com \
+    $ snmpsim-record-commands --agent-udpv4-endpoint=demo.pysnmp.com \
       --output-file=data/sql.snmprec \
       --variation-module=sql \
       --variation-module-options=dbtype:MySQLdb,host:127.0.0.1,port:3306, \
@@ -311,7 +311,7 @@ as a backend data store:
 
 .. code-block:: bash
 
-    $ snmpsim-record-commands --agent-udpv4-endpoint=demo.snmplabs.com \
+    $ snmpsim-record-commands --agent-udpv4-endpoint=demo.pysnmp.com \
       --output-file=data/sql.snmprec \
       --variation-module=sql \
       --variation-module-options=dbtype:psycopg2,database:snmpsim,user:snmpsim, \
@@ -370,7 +370,7 @@ SNMP Agent:
 
 .. code-block:: bash
 
-    $ snmpsim-record-commands --agent-udpv4-endpoint=demo.snmplabs.com \
+    $ snmpsim-record-commands --agent-udpv4-endpoint=demo.pysnmp.com \
       --start-oid=1.3.6.1.2.1.2 --stop-oid=1.3.6.1.2.1.3 \
       --output-file=data/redis.snmprec \
       --variation-module=redis \
