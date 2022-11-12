@@ -2,12 +2,15 @@
 SNMP Agent Simulator
 ====================
 
+.. toctree::
+   :maxdepth: 2
+
 SNMP Simulator tool can simulate many thousands of different
-SNMP speaking devices on a network. It is primarily being used for testing
+SNMP speaking devices on a network. It is primarily used for testing
 and development purposes.
 
-The software is free, open source and immediately available to anyone for
-whatever purpose.
+It is free, open source and immediately available to anyone for whatever
+purpose free of charge.
 
 How to use SNMP Simulator
 -------------------------
@@ -19,20 +22,19 @@ Try the fast lane if you are fluent with network management matters.
 
    /quickstart
 
-SNMP Simulator suite
---------------------
-
-Detailed documentation explaining the entire work flow and SNMP simulator
-tool set.
-
-For larger-scale, automated deployments REST API based
-`control plane <https://www.pysnmp.com/snmpsim-control-plane>`_ can be used for
-centralized management and monitoring purposes.
+Documentation
+-------------
 
 .. toctree::
    :maxdepth: 2
 
-   /documentation/index.rst
+   /simulating-agents
+   /managing-simulation-data
+   /addressing-agents
+   /simulation-with-variation-modules
+   /building-simulation-data
+   /recording-with-variation-modules
+   /tips-and-tricks
 
 Source code & Changelog
 -----------------------
@@ -40,12 +42,7 @@ Source code & Changelog
 Project source code is hosted at `GitHub <https://github.com/lextudio/snmpsim>`_.
 Everyone is welcome to fork and contribute back!
 
-We maintain a detailed log of changes:
-
-.. toctree::
-   :maxdepth: 1
-
-   /changelog
+We maintain detailed :doc:`log of changes </changelog>` to our software.
 
 Download
 --------
@@ -65,23 +62,22 @@ the latest release from GitHub or `PyPI <https://pypi.org/project/snmpsim/>`_.
 License
 -------
 
-The SNMP Simulator software is distributed under 2-clause BSD license
-
-.. toctree::
-   :maxdepth: 1
-
-   /license
+The SNMP Simulator software is distributed under 2-clause :doc:`BSD license </license>`.
 
 Development
 -----------
 
 Our development plans and new features we consider for eventual implementation
-are tracked on the future features page.
+are tracked on the :doc:`future features </development>` page.
 
-.. toctree::
-   :maxdepth: 2
+Free simulation service
+-----------------------
 
-   /development
+We setup :doc:`publicly available SNMP Simulator </public-snmp-agent-simulator>`
+instance at `Microsoft Azure <https://azure.microsoft.com/>`_ to serve
+SNMP simulation services to you - our fellow SNMP developers
+and testers. The service is hosted in the U.S. (east coast) and should
+be available to everyone free of charge.
 
 Contact
 -------

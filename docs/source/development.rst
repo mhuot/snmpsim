@@ -55,6 +55,6 @@ Re-work data files index implementation to allow unordered OIDs
 and better performance on GETNEXT/GETBULK operations.
 
 If you need one of these or some other feature - please open
-a `feature request <https://github.com/pysnmpof/snmpsim/issues/new>`_ at
+a `feature request <https://github.com/lextudio/pysnmp/issues/new>`_ at
 GitHub or e-mail directly to *etingof@gmail.com* to discuss contractual
 work possibilities.

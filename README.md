@@ -108,7 +108,7 @@ We maintain publicly available SNMP simulator instance at
 welcome to query it as much as you wish.
 
 Besides stand-alone deployment described above, third-party
-[SNMP Simulator control plane](https://github.com/pysnmpof/snmpsim-control-plane)
+[SNMP Simulator control plane](https://github.com/lextudio/snmpsim-control-plane)
 project offers REST API managed mass deployment of multiple `snmpsim-command-responder`
 instances.
 
@@ -122,7 +122,7 @@ Getting help
 ------------
 
 If something does not work as expected,
-[open an issue](https://github.com/pysnmpof/snmpsim/issues) at GitHub or
+[open an issue](https://github.com/lextudio/pysnmp/issues) at GitHub or
 post your question [on Stack Overflow](https://stackoverflow.com/questions/ask)
 or try browsing snmpsim [mailing list archives](https://sourceforge.net/p/snmpsim/mailman/snmpsim-users/).
 
@@ -132,4 +132,6 @@ Feedback and collaboration
 I'm interested in bug reports, fixes, suggestions and improvements. Your
 pull requests are very welcome!
 
-Copyright (c) 2010-2019, [Ilya Etingof](mailto:etingof@gmail.com). All rights reserved.
+Copyright (c) 2010-2019, [Ilya Etingof](mailto:etingof@gmail.com).
+Copyright (c) 2022, [LeXtudio Inc.](mailto:support@lextudio.com).
+All rights reserved.
