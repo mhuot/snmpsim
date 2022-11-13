@@ -1,10 +1,9 @@
 
 SNMP Simulator
 --------------
-[![PyPI](https://img.shields.io/pypi/v/snmpsim.svg?maxAge=2592000)](https://pypi.org/project/snmpsim/)
-[![Python Versions](https://img.shields.io/pypi/pyversions/snmpsim.svg)](https://pypi.org/project/snmpsim/)
-[![Build status](https://travis-ci.org/pysnmpof/snmpsim.svg?branch=master)](https://travis-ci.org/pysnmpof/snmpsim)
-[![GitHub license](https://img.shields.io/badge/license-BSD-blue.svg)](https://raw.githubusercontent.com/pysnmpof/snmpsim/master/LICENSE.txt)
+[![PyPI](https://img.shields.io/pypi/v/snmpsim-lextudio.svg?maxAge=2592000)](https://pypi.org/project/snmpsim-lextudio/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/snmpsim-lextudio.svg)](https://pypi.org/project/snmpsim-lextudio/)
+[![GitHub license](https://img.shields.io/badge/license-BSD-blue.svg)](https://raw.githubusercontent.com/lextudio/snmpsim/master/LICENSE.txt)
 
 This is a pure-Python, open source and free implementation of SNMP agents simulator
 distributed under 2-clause [BSD license](https://www.pysnmp.com/snmpsim/license.html).
@@ -33,7 +32,7 @@ Download
 --------
 
 SNMP simulator software is freely available for download from
-[PyPI](https://pypi.org/project/snmpsim/) and
+[PyPI](https://pypi.org/project/snmpsim-lextudio/) and
 [project site](https://www.pysnmp.com/snmpsim/download.html).
 
 Installation
