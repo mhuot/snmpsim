@@ -7,7 +7,6 @@
 import re
 
 from pyasn1.codec.ber import encoder
-from pyasn1.compat.octets import ints2octs
 from pyasn1.compat.octets import octs2str
 from pyasn1.type import univ
 from pysnmp.proto import rfc1902
@@ -87,9 +86,9 @@ class WalkGrammar(abstract.AbstractGrammar):
         # .1.3.6.1.2.1.17.6.1.1.1.0 = BITS: 5B 00 00 00   clear(1)        
         match = re.match(r'^([0-9a-fA-F]{2}(\s+[0-9a-fA-F]{2})*)', value)
         if match:
-            return ints2octs([int(y, 16) for y in match.group(1).split(' ')])
+            return bytes([int(y, 16) for y in match.group(1).split(' ')])
 
-        return ints2octs([int(y, 16) for y in value.split(' ')])
+        return bytes([int(y, 16) for y in value.split(' ')])
 
     @staticmethod
     def _hex_string_filter(value):
