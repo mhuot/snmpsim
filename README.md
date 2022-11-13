@@ -42,7 +42,7 @@ Installation
 Just run:
 
 ```bash
-$ pip install snmpsim
+$ pip install snmpsim-lextudio
 ```
 
 How to use SNMP simulator

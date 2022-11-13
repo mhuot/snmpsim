@@ -57,7 +57,7 @@ version from PyPI:
 
    $ virtualenv venv
    $ source venv/bin/activate
-   $ pip install snmpsim
+   $ pip install snmpsim-lextudio
 
 Alternatively, you can `download <https://github.com/lextudio/snmpsim/releases>`_
 the latest release from GitHub or `PyPI <https://pypi.org/project/snmpsim/>`_.
