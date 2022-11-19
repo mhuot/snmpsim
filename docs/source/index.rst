@@ -60,7 +60,7 @@ version from PyPI:
    $ pip install snmpsim-lextudio
 
 Alternatively, you can `download <https://github.com/lextudio/snmpsim/releases>`_
-the latest release from GitHub or `PyPI <https://pypi.org/project/snmpsim/>`_.
+the latest release from GitHub or `PyPI <https://pypi.org/project/snmpsim-lextudio/>`_.
 
 License
 -------
