@@ -1,5 +1,9 @@
+Revision 1.0.1, released 26-01-2023
+-----------------------------------
 
-Revision 1.0.0, released XX-12-2019
+- Added data and variation folders back to package.
+
+Revision 1.0.0, released 13-11-2022
 -----------------------------------
 
 - Command-line tools refactored into entry-points and renamed for better
