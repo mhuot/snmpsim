@@ -77,7 +77,7 @@ def parse_endpoint(arg, ipv6=False):
 
     try:
         if ':' in address:
-            address, port = address.split(':', 1)
+            address, port = address.rsplit(':', 1)
             port = int(port)
 
         else:
