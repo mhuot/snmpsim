@@ -10,7 +10,6 @@ import argparse
 import functools
 import os
 import random
-import string
 import sys
 import traceback
 
@@ -233,12 +232,8 @@ def main():
 
                 elif isinstance(syntax, univ.OctetString):
                     maxWords = 10
-                    if args.string_pool is not None:
-                        val = ' '.join([args.string_pool[random.randrange(0, len(args.string_pool))]
-                                        for i in range(random.randrange(1, maxWords))])
-                    else:
-                        chars = string.ascii_letters + string.digits + string.punctuation
-                        val = ''.join(random.choice(chars) for i in range(random.randrange(1, maxWords)))
+                    val = ' '.join([args.string_pool[random.randrange(0, len(args.string_pool))]
+                                    for i in range(random.randrange(1, maxWords))])
 
                 elif isinstance(syntax, univ.ObjectIdentifier):
                     val = '.'.join(['1', '3', '6', '1', '3'] + [
@@ -463,7 +458,7 @@ def main():
 
             elif isinstance(node, MibScalar):
                 hint = ''
-                if not getattr(args, 'row_hint', False):
+                if not args.row_hint:
                     hint += ('# Scalar %s::%s (type %s)'
                              '\r\n' % (mib_name, sym_name,
                                        node.syntax.__class__.__name__))
