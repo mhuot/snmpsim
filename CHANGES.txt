@@ -1,3 +1,8 @@
+Revision 1.0.3, released 16-09-2023
+-----------------------------------
+
+- Merged other pull requests on upstream.
+
 Revision 1.0.2, released 16-09-2023
 -----------------------------------
 
