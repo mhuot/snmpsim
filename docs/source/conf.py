@@ -33,7 +33,6 @@ import os
 # ones.
 extensions = [
     'sphinx.ext.viewcode',
-    'sphinx.ext.intersphinx',
     'sphinx_sitemap',
     'sphinx_copybutton',
 ]
