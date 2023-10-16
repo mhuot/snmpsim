@@ -334,7 +334,7 @@ def main():
 
     if args.listen_interface:
         if not args.quiet:
-            log.info(
+            log.msg(
                 'Listening on interface %s in %spromiscuous '
                 'mode' % (args.listen_interface,
                           '' if args.promiscuous_mode else 'non-'))
@@ -515,7 +515,7 @@ def main():
 
     try:
         if args.listen_interface:
-            log.info(
+            log.msg(
                 'Listening on interface "%s", kill me when you '
                 'are done.' % args.listen_interface)
 
