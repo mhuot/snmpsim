@@ -37,6 +37,8 @@ function cleanup()
 
 trap cleanup EXIT
 
+echo "step 0"
+
 # test snmpsimd instance, 1-st endpoint
 snmpsim-record-commands \
     --log-level error \
@@ -47,6 +49,8 @@ snmpsim-record-commands \
 
 rm -f $SNMPREC_LOG
 
+echo "step 1"
+
 # test snmpsimd instance, 2-nd endpoint
 snmpsim-record-commands \
     --log-level error \
@@ -56,6 +60,8 @@ snmpsim-record-commands \
 [ -z $SNMPREC_LOG ] && { echo "Empty .snmprec generated"; exit 1 ; }
 
 rm -f $SNMPREC_LOG
+
+echo "step 2"
 
 # test snmpsimd instance, timeout
 snmpsim-record-commands \
@@ -74,6 +80,8 @@ snmpsim-record-commands \
 
 rm -f $SNMPREC_LOG
 
+echo "step 3"
+
 # test snmpsimd instance, snmpwalk format
 snmpsim-record-commands \
     --log-level error \
@@ -84,6 +92,8 @@ snmpsim-record-commands \
 [ -z $SNMPREC_LOG ] && { echo "Empty .snmprec generated"; exit 1 ; }
 
 rm -f $SNMPREC_LOG
+
+echo "step 4"
 
 # test snmpsimd instance, sapwalk format
 snmpsim-record-commands \
@@ -96,6 +106,8 @@ snmpsim-record-commands \
 
 rm -f $SNMPREC_LOG
 
+echo "step 5"
+
 # test snmpsimd instance, GETBULK mode
 snmpsim-record-commands \
     --log-level error \
@@ -106,6 +118,8 @@ snmpsim-record-commands \
 [ -z $SNMPREC_LOG ] && { echo "Empty .snmprec generated"; exit 1 ; }
 
 rm -f $SNMPREC_LOG
+
+echo "step 6"
 
 # test snmpsimd instance, v3 noAuthNoPriv
 snmpsim-record-commands \
@@ -118,6 +132,8 @@ snmpsim-record-commands \
 
 rm -f $SNMPREC_LOG
 
+echo "step 7"
+
 # test snmpsimd instance, v3 authNoPriv
 snmpsim-record-commands \
     --log-level error \
@@ -129,6 +145,8 @@ snmpsim-record-commands \
 [ -z $SNMPREC_LOG ] && { echo "Empty .snmprec generated"; exit 1 ; }
 
 rm -f $SNMPREC_LOG
+
+echo "step 8"
 
 # test snmpsimd instance, v3 authPriv
 snmpsim-record-commands \
@@ -143,6 +161,8 @@ snmpsim-record-commands \
 
 rm -f $SNMPREC_LOG
 
+echo "step 9"
+
 # test lite snmpsim instance
 snmpsim-record-commands \
     --log-level error \
@@ -152,6 +172,8 @@ snmpsim-record-commands \
 [ -z $SNMPREC_LOG ] && { echo "Empty .snmprec generated"; exit 1 ; }
 
 rm -f $SNMPREC_LOG
+
+echo "step 10"
 
 # TODO: Fails on --log-level and something else
 #snmpsim-record-mibs \
