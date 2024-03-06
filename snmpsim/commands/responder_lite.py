@@ -455,7 +455,7 @@ def main():
         transport_dispatcher.registerTransport(
             transport_domain, agent_udpv4_endpoint[0])
 
-        log.info('Listening at UDP/IPv4 endpoint %s, transport ID '
+        log.msg('Listening at UDP/IPv4 endpoint %s, transport ID '
                  '%s' % (agent_udpv4_endpoint[1],
                          '.'.join([str(handler) for handler in transport_domain])))
 
@@ -471,7 +471,7 @@ def main():
         transport_dispatcher.registerTransport(
             transport_domain, agent_udpv6_endpoint[0])
 
-        log.info('Listening at UDP/IPv6 endpoint %s, transport ID '
+        log.msg('Listening at UDP/IPv6 endpoint %s, transport ID '
                  '%s' % (agent_udpv6_endpoint[1],
                          '.'.join([str(handler) for handler in transport_domain])))
 

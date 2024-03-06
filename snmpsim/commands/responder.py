@@ -760,7 +760,7 @@ configured automatically based on simulation data file paths relative to
                     config.addSocketTransport(
                         snmp_engine, transport_domain, agent_udpv4_endpoint[0])
 
-                    log.info(
+                    log.msg(
                         'Listening at UDP/IPv4 endpoint %s, transport ID '
                         '%s' % (agent_udpv4_endpoint[1],
                                 '.'.join([str(handler) for handler in transport_domain])))
@@ -776,7 +776,7 @@ configured automatically based on simulation data file paths relative to
                         snmp_engine,
                         transport_domain, agent_udpv6_endpoint[0])
 
-                    log.info(
+                    log.msg(
                         'Listening at UDP/IPv6 endpoint %s, transport ID '
                         '%s' % (agent_udpv6_endpoint[1],
                                 '.'.join([str(handler) for handler in transport_domain])))
