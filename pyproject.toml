@@ -2,7 +2,7 @@
 name = "snmpsim-lextudio"
 version = "1.0.5"
 description = "SNMP Simulator is a tool that acts as multitude of SNMP Agents built into real physical devices, from SNMP Manager's point of view. Simulator builds and uses a database of physical devices' SNMP footprints to respond like their original counterparts do."
-authors = ["Ilya Etingof <etingof@gmail.com>", "Lex Li <support@lextudio.com>"]
+authors = ["Ilya Etingof <etingof@gmail.com>", "LeXtudio Inc. <support@lextudio.com>"]
 license = "BSD-2-Clause"
 repository = "https://github.com/lextudio/snmpsim"
 classifiers = [
