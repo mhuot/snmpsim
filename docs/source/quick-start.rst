@@ -9,26 +9,30 @@ Installation
 ------------
 
 SNMP Simulator is written in Python and depends on other Python libraries.
-The easiest way to deploy SNMP Simulator is by downloading it from PyPI:
+The easiest way to deploy SNMP Simulator is by downloading it from PyPI.
+
+Below we quickly set up a Python 3.12 virtual environment and install SNMP
+Simulator into it.
 
 .. code-block:: bash
 
-   $ virtualenv venv
-   $ source venv/bin/activate
-   $ pip install snmpsim-lextudio
+   $ pyenv local 3.12
+   $ pip install pipenv
+   $ pipenv --python 3.12
+   $ pipenv install snmpsim-lextudio
 
-Run SNMP simulation
--------------------
+Run SNMP Simulator
+------------------
 
-Once installed, invoke *snmpsim-command-responder* daemon and point it to a
+Once installed, invoke ``snmpsim-command-responder`` daemon and point it to a
 directory containing simulation data:
 
 .. code-block:: bash
 
-   $ snmpsim-command-responder --data-dir=./data \
+   $ pipenv run snmpsim-command-responder --data-dir=./data \
         --agent-udpv4-endpoint=127.0.0.1:1024
 
-Test the setup
+Test The Setup
 --------------
 
 Now you can query simulated agent(s) with Net-SNMP's command-line tools
@@ -48,7 +52,7 @@ which are usually shipped along with your operating system:
 
 Simulation data for each simulated SNMP agent is stored in simple plain-text file.
 Each line in represents a single SNMP object in form of pipe-separated fields
-*OID|TYPE|VALUE*.
+``OID|TYPE|VALUE``.
 
 .. code-block:: bash
 
@@ -61,9 +65,9 @@ Each line in represents a single SNMP object in form of pipe-separated fields
    ...
 
 Simulator uses the parameters (such as SNMP community name or SNMPv3 context
-or IP address) of SNMP query to choose .snmprec file to respond with.
+or IP address) of SNMP query to choose ``.snmprec`` file to respond with.
 
-Simulate existing SNMP agent
+Simulate Existing SNMP Agent
 ----------------------------
 
 Besides creating simulation data by hand, you can generate it from some
@@ -72,7 +76,7 @@ as a donor device:
 
 .. code-block:: bash
 
-   $ snmpsim-record-commands --agent-udpv4-endpoint=demo.pysnmp.com \
+   $ pipenv run snmpsim-record-commands --agent-udpv4-endpoint=demo.pysnmp.com \
         --output-file=./data/public.snmprec
    SNMP version 2c, Community name: public
    Querying UDP/IPv4 agent at 195.218.195.228:161
@@ -87,7 +91,7 @@ Alternatively, you could build simulation data from a MIB file:
 
 .. code-block:: bash
 
-   $ snmpsim-record-mibs --output-file=./data/public.snmprec \
+   $ pipenv run snmpsim-record-mibs --output-file=./data/public.snmprec \
         --mib-module=IF-MIB
    # MIB module: IF-MIB, from the beginning till the end
    # Starting table IF-MIB::ifTable (1.3.6.1.2.1.2.2)
@@ -100,5 +104,12 @@ You can even sniff network traffic on the wire recovering SNMP messages there
 and building simulation data from it.
 
 Besides static files, SNMP simulator can be configured to call its plugin modules
-for simulation data. We ship plugins to interface SQL and noSQL databases, file-based
+for simulation data. We ship plugins to interface SQL and NOSQL databases, file-based
 key-value stores and other sources of information.
+
+Related Resources
+-----------------
+
+- `Support Options`_
+- :doc:`/documentation/index`
+- :doc:`/license`
