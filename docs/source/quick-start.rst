@@ -1,5 +1,5 @@
 
-Quick start
+Quick Start
 ===========
 
 .. toctree::
@@ -83,6 +83,11 @@ as a donor device:
    Agent response timeout: 3.00 secs, retries: 3
    Sending initial GETNEXT request for 1.3.6 (stop at <end-of-mib>)....
    OIDs dumped: 182, elapsed: 11.97 sec, rate: 7.00 OIDs/sec, errors: 0
+
+.. note::
+
+   We host many simulation data files in ``snmpsim-data-lextudio`` package. You can learn
+   more about them in the `SNMP Simulator Data`_.
 
 Simulate from MIB
 -----------------

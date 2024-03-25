@@ -9,7 +9,7 @@ PySNMP provides a mature and reliable solution for SNMP simulation. With PySNMP'
 
 The software is free, open source, and immediately available to anyone for whatever purpose, making it an accessible and valuable tool for network management professionals.
 
-How to use SNMP Simulator
+How to Use SNMP Simulator
 -------------------------
 
 Try the fast lane if you are fluent with network management matters.
