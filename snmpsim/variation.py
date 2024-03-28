@@ -30,83 +30,89 @@ RECORD_TYPES = {
 }
 
 
-class SnmprecRecordMixIn(object):
-
+class SnmprecRecordMixIn:
     def evaluate_value(self, oid, tag, value, **context):
         # Variation module reference
-        if ':' in tag:
-            mod_name, tag = tag[tag.index(':')+1:], tag[:tag.index(':')]
+        if ":" in tag:
+            mod_name, tag = tag[tag.index(":") + 1 :], tag[: tag.index(":")]
 
         else:
             mod_name = None
 
         if mod_name:
-            if ('variationModules' in context and
-                    mod_name in context['variationModules']):
-
-                if 'dataValidation' in context:
+            if (
+                "variationModules" in context
+                and mod_name in context["variationModules"]
+            ):
+                if "dataValidation" in context:
                     return oid, tag, univ.Null
 
                 else:
-                    if context['setFlag']:
-
-                        hexvalue = self.grammar.hexify_value(
-                            context['origValue'])
+                    if context["setFlag"]:
+                        hexvalue = self.grammar.hexify_value(context["origValue"])
 
                         if hexvalue is not None:
-                            context['hexvalue'] = hexvalue
-                            context['hextag'] = self.grammar.get_tag_by_type(
-                                context['origValue'])
-                            context['hextag'] += 'x'
+                            context["hexvalue"] = hexvalue
+                            context["hextag"] = self.grammar.get_tag_by_type(
+                                context["origValue"]
+                            )
+                            context["hextag"] += "x"
 
                     # prepare agent and record contexts on first reference
-                    (variation_module,
-                     agent_contexts,
-                     record_contexts) = context['variationModules'][mod_name]
+                    (variation_module, agent_contexts, record_contexts) = context[
+                        "variationModules"
+                    ][mod_name]
 
-                    if context['dataFile'] not in agent_contexts:
-                        agent_contexts[context['dataFile']] = {}
+                    if context["dataFile"] not in agent_contexts:
+                        agent_contexts[context["dataFile"]] = {}
 
-                    if context['dataFile'] not in record_contexts:
-                        record_contexts[context['dataFile']] = {}
+                    if context["dataFile"] not in record_contexts:
+                        record_contexts[context["dataFile"]] = {}
 
-                    variation_module['agentContext'] = agent_contexts[context['dataFile']]
+                    variation_module["agentContext"] = agent_contexts[
+                        context["dataFile"]
+                    ]
 
-                    record_contexts = record_contexts[context['dataFile']]
+                    record_contexts = record_contexts[context["dataFile"]]
 
                     if oid not in record_contexts:
                         record_contexts[oid] = {}
 
-                    variation_module['recordContext'] = record_contexts[oid]
+                    variation_module["recordContext"] = record_contexts[oid]
 
-                    handler = variation_module['variate']
+                    handler = variation_module["variate"]
 
                     # invoke variation module
                     oid, tag, value = handler(oid, tag, value, **context)
 
                     ReportingManager.update_metrics(
-                        variation=mod_name, variation_call_count=1, **context)
+                        variation=mod_name, variation_call_count=1, **context
+                    )
 
             else:
                 ReportingManager.update_metrics(
-                    variation=mod_name, variation_failure_count=1, **context)
+                    variation=mod_name, variation_failure_count=1, **context
+                )
 
                 raise SnmpsimError(
-                    'Variation module "%s" referenced but not '
-                    'loaded\r\n' % mod_name)
+                    'Variation module "%s" referenced but not ' "loaded\r\n" % mod_name
+                )
 
         if not mod_name:
-            if 'dataValidation' in context:
-                snmprec.SnmprecRecord.evaluate_value(
-                    self, oid, tag, value, **context)
+            if "dataValidation" in context:
+                snmprec.SnmprecRecord.evaluate_value(self, oid, tag, value, **context)
 
-            if (not context['nextFlag'] and
-                    not context['exactMatch'] or context['setFlag']):
-                return context['origOid'], tag, context['errorStatus']
+            if (
+                not context["nextFlag"]
+                and not context["exactMatch"]
+                or context["setFlag"]
+            ):
+                return context["origOid"], tag, context["errorStatus"]
 
-        if not hasattr(value, 'tagSet'):  # not already a pyasn1 object
+        if not hasattr(value, "tagSet"):  # not already a pyasn1 object
             return snmprec.SnmprecRecord.evaluate_value(
-                       self, oid, tag, value, **context)
+                self, oid, tag, value, **context
+            )
 
         return oid, tag, value
 
@@ -115,7 +121,7 @@ class SnmprecRecordMixIn(object):
 
         oid = self.evaluate_oid(oid)
 
-        if context.get('oidOnly'):
+        if context.get("oidOnly"):
             value = None
 
         else:
@@ -130,35 +136,35 @@ class SnmprecRecordMixIn(object):
 
             except PyAsn1Error as exc:
                 raise SnmpsimError(
-                    'value evaluation for %s = %r failed: '
-                    '%s\r\n' % (oid, value, exc))
+                    "value evaluation for %s = %r failed: " "%s\r\n" % (oid, value, exc)
+                )
 
         return oid, value
 
     def format_value(self, oid, value, **context):
-        (text_oid,
-         text_tag,
-         text_value) = snmprec.SnmprecRecord.format_value(self, oid, value)
+        (text_oid, text_tag, text_value) = snmprec.SnmprecRecord.format_value(
+            self, oid, value
+        )
 
         # invoke variation module
-        if context['variationModule']:
-            (plain_oid,
-             plain_tag,
-             plain_value) = snmprec.SnmprecRecord.format_value(
-                self, oid, value, nohex=True)
+        if context["variationModule"]:
+            (plain_oid, plain_tag, plain_value) = snmprec.SnmprecRecord.format_value(
+                self, oid, value, nohex=True
+            )
 
             if plain_tag != text_tag:
-                context['hextag'], context['hexvalue'] = text_tag, text_value
+                context["hextag"], context["hexvalue"] = text_tag, text_value
 
             else:
                 text_tag, text_value = plain_tag, plain_value
 
-            handler = context['variationModule']['record']
+            handler = context["variationModule"]["record"]
 
             text_oid, text_tag, text_value = handler(
-                text_oid, text_tag, text_value, **context)
+                text_oid, text_tag, text_value, **context
+            )
 
-        elif 'stopFlag' in context and context['stopFlag']:
+        elif "stopFlag" in context and context["stopFlag"]:
             raise NoDataNotification()
 
         return text_oid, text_tag, text_value
@@ -171,8 +177,7 @@ class SnmprecRecord(SnmprecRecordMixIn, snmprec.SnmprecRecord):
 RECORD_TYPES[SnmprecRecord.ext] = SnmprecRecord()
 
 
-class CompressedSnmprecRecord(
-        SnmprecRecordMixIn, snmprec.CompressedSnmprecRecord):
+class CompressedSnmprecRecord(SnmprecRecordMixIn, snmprec.CompressedSnmprecRecord):
     pass
 
 
@@ -180,21 +185,21 @@ RECORD_TYPES[CompressedSnmprecRecord.ext] = CompressedSnmprecRecord()
 
 
 def load_variation_modules(search_path, modules_options):
-
     variation_modules = {}
     modules_options = modules_options.copy()
 
     for variation_modules_dir in search_path:
         log.info(
             'Scanning "%s" directory for variation '
-            'modules...' % variation_modules_dir)
+            "modules..." % variation_modules_dir
+        )
 
         if not os.path.exists(variation_modules_dir):
             log.info('Directory "%s" does not exist' % variation_modules_dir)
             continue
 
         for d_file in os.listdir(variation_modules_dir):
-            if d_file[-3:] != '.py':
+            if d_file[-3:] != ".py":
                 continue
 
             _to_load = []
@@ -209,7 +214,7 @@ def load_variation_modules(search_path, modules_options):
                 del modules_options[mod_name]
 
             else:
-                _to_load.append((mod_name, ''))
+                _to_load.append((mod_name, ""))
 
             mod = os.path.abspath(os.path.join(variation_modules_dir, d_file))
 
@@ -217,81 +222,84 @@ def load_variation_modules(search_path, modules_options):
                 if alias in variation_modules:
                     log.error(
                         'ignoring duplicate variation module "%s" at '
-                        '"%s"' % (alias, mod))
+                        '"%s"' % (alias, mod)
+                    )
                     continue
 
-                ctx = {
-                    'path': mod,
-                    'alias': alias,
-                    'args': params,
-                    'moduleContext': {}
-                }
+                ctx = {"path": mod, "alias": alias, "args": params, "moduleContext": {}}
 
                 try:
                     with open(mod) as fl:
-                        exec(compile(fl.read(), mod, 'exec'), ctx)
+                        exec(compile(fl.read(), mod, "exec"), ctx)
 
                 except Exception as exc:
                     log.error(
-                        'Variation module "%s" execution failure: '
-                        '%s' % (mod, exc))
+                        'Variation module "%s" execution failure: ' "%s" % (mod, exc)
+                    )
                     return 1
 
                 # moduleContext, agentContexts, recordContexts
                 variation_modules[alias] = ctx, {}, {}
 
-        log.info('A total of %s modules found in '
-                 '%s' % (len(variation_modules), variation_modules_dir))
+        log.info(
+            "A total of %s modules found in "
+            "%s" % (len(variation_modules), variation_modules_dir)
+        )
 
     if modules_options:
-        log.info('WARNING: unused options for variation modules: '
-                '%s' % ', '.join(modules_options))
+        log.info(
+            "WARNING: unused options for variation modules: "
+            "%s" % ", ".join(modules_options)
+        )
 
     return variation_modules
 
 
 def initialize_variation_modules(variation_modules, mode):
-    log.info('Initializing variation modules...')
+    log.info("Initializing variation modules...")
 
     for name, modules_contexts in variation_modules.items():
-
         body = modules_contexts[0]
 
-        for handler in ('init', 'variate', 'shutdown'):
+        for handler in ("init", "variate", "shutdown"):
             if handler not in body:
-                log.error('missing "%s" handler at variation module '
-                          '"%s"' % (handler, name))
+                log.error(
+                    'missing "%s" handler at variation module ' '"%s"' % (handler, name)
+                )
                 return 1
 
         try:
-            body['init'](options=body['args'], mode=mode)
+            body["init"](options=body["args"], mode=mode)
 
         except Exception as exc:
             log.error(
                 'Variation module "%s" from "%s" load FAILED: '
-                '%s' % (body['alias'], body['path'], exc))
+                "%s" % (body["alias"], body["path"], exc)
+            )
 
         else:
             log.info(
                 'Variation module "%s" from "%s" '
-                'loaded OK' % (body['alias'], body['path']))
+                "loaded OK" % (body["alias"], body["path"])
+            )
 
 
 def parse_modules_options(options):
     variation_modules_options = {}
 
     for option in options:
-        args = option.split(':', 1)
+        args = option.split(":", 1)
 
         try:
             mod_name, args = args[0], args[1]
 
         except Exception as exc:
             raise SnmpsimError(
-                'ERROR: improper variation module options %s: %s\r\n', exc)
+                "ERROR: improper variation module options %s: %s\r\n", exc
+            )
 
-        if '=' in mod_name:
-            mod_name, alias = mod_name.split('=', 1)
+        if "=" in mod_name:
+            mod_name, alias = mod_name.split("=", 1)
 
         else:
             alias = os.path.splitext(os.path.basename(mod_name))[0]

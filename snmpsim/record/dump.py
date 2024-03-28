@@ -14,7 +14,7 @@ from snmpsim.record import abstract
 
 class DumpRecord(abstract.AbstractRecord):
     grammar = dump.DumpGrammar()
-    ext = 'dump'
+    ext = "dump"
 
     def evaluate_oid(self, oid):
         return univ.ObjectIdentifier(oid)
@@ -25,15 +25,17 @@ class DumpRecord(abstract.AbstractRecord):
 
         except Exception as exc:
             raise SnmpsimError(
-                'value evaluation error for tag %r, value %r: '
-                '%s' % (tag, value, exc))
+                "value evaluation error for tag %r, value %r: " "%s" % (tag, value, exc)
+            )
 
         # not all callers supply the context - just ignore it
         try:
-            if (not context['nextFlag'] and
-                not context['exactMatch'] or
-                    context['setFlag']):
-                return context['origOid'], tag, context['errorStatus']
+            if (
+                not context["nextFlag"]
+                and not context["exactMatch"]
+                or context["setFlag"]
+            ):
+                return context["origOid"], tag, context["errorStatus"]
 
         except KeyError:
             pass
@@ -44,18 +46,17 @@ class DumpRecord(abstract.AbstractRecord):
         oid, tag, value = self.grammar.parse(line)
         oid = self.evaluate_oid(oid)
 
-        if context.get('oidOnly'):
+        if context.get("oidOnly"):
             value = None
 
         else:
             try:
-                oid, tag, value = self.evaluate_value(
-                    oid, tag, value, **context)
+                oid, tag, value = self.evaluate_value(oid, tag, value, **context)
 
             except PyAsn1Error as exc:
                 raise SnmpsimError(
-                    'value evaluation for %s = %r failed: '
-                    '%s\r\n' % (oid, value, exc))
+                    "value evaluation for %s = %r failed: " "%s\r\n" % (oid, value, exc)
+                )
 
         return oid, value
 

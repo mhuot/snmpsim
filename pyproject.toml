@@ -46,8 +46,8 @@ pre-commit = "2.21.0"
 [tool.poetry_bumpversion.file."snmpsim/__init__.py"]
 
 [tool.poetry_bumpversion.file."docs/source/conf.py"]
-search = "release = '{current_version}'"
-replace = "release = '{new_version}'"
+search = "release = \"{current_version}\""
+replace = "release = \"{new_version}\""
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

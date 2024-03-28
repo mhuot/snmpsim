@@ -12,7 +12,7 @@ from snmpsim.reporting.formats import null
 from snmpsim import log
 
 
-class ReportingManager(object):
+class ReportingManager:
     """Maintain activity metrics.
 
     Accumulates and periodically dumps activity metrics reflecting
@@ -24,9 +24,9 @@ class ReportingManager(object):
     """
 
     REPORTERS = {
-        'null': null.NullReporter,
-        'fulljson': alljson.FullJsonReporter,
-        'minimaljson': alljson.MinimalJsonReporter,
+        "null": null.NullReporter,
+        "fulljson": alljson.FullJsonReporter,
+        "minimaljson": alljson.MinimalJsonReporter,
     }
 
     _reporter = null.NullReporter()
@@ -37,15 +37,16 @@ class ReportingManager(object):
             reporter = cls.REPORTERS[fmt]
 
         except KeyError:
-            raise error.SnmpsimError('Unsupported reporting format: %s' % fmt)
+            raise error.SnmpsimError("Unsupported reporting format: %s" % fmt)
 
         cls._reporter = reporter(*args)
 
-        log.info('Using "%s" activity reporting method with '
-                 'params %s' % (cls._reporter, ', '.join(args)))
+        log.info(
+            'Using "%s" activity reporting method with '
+            "params %s" % (cls._reporter, ", ".join(args))
+        )
 
     @classmethod
     def update_metrics(cls, **kwargs):
-
         cls._reporter.update_metrics(**kwargs)
         cls._reporter.flush()

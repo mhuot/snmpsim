@@ -16,7 +16,7 @@ from snmpsim import datafile
 from snmpsim import log
 
 
-class MibInstrumController(object):
+class MibInstrumController:
     """Lightweight MIB instrumentation (API-compatible with pysnmp's)"""
 
     def __init__(self, data_file):
@@ -27,76 +27,93 @@ class MibInstrumController(object):
 
     def _get_call_context(self, ac_info, next_flag=False, set_flag=False):
         if ac_info is None:
-            return {'nextFlag': next_flag,
-                    'setFlag': set_flag}
+            return {"nextFlag": next_flag, "setFlag": set_flag}
 
         ac_fun, snmp_engine = ac_info  # we injected snmpEngine object earlier
 
         # this API is first introduced in pysnmp 4.2.6
         execCtx = snmp_engine.observer.getExecutionContext(
-            'rfc3412.receiveMessage:request')
+            "rfc3412.receiveMessage:request"
+        )
 
-        (transport_domain,
-         transport_address,
-         security_model,
-         security_name,
-         security_level,
-         context_engine_id,
-         context_name,
-         pdu_type) = (execCtx['transportDomain'],
-                      execCtx['transportAddress'],
-                      execCtx['securityModel'],
-                      execCtx['securityName'],
-                      execCtx['securityLevel'],
-                      execCtx['contextEngineId'],
-                      execCtx['contextName'],
-                      execCtx['pdu'].__class__.__name__)
+        (
+            transport_domain,
+            transport_address,
+            security_model,
+            security_name,
+            security_level,
+            context_engine_id,
+            context_name,
+            pdu_type,
+        ) = (
+            execCtx["transportDomain"],
+            execCtx["transportAddress"],
+            execCtx["securityModel"],
+            execCtx["securityName"],
+            execCtx["securityLevel"],
+            execCtx["contextEngineId"],
+            execCtx["contextName"],
+            execCtx["pdu"].__class__.__name__,
+        )
 
         if isinstance(transport_address, udp.UdpTransportAddress):
-            transport_protocol = 'udpv4'
+            transport_protocol = "udpv4"
 
         elif isinstance(transport_address, udp6.Udp6TransportAddress):
-            transport_protocol = 'udpv6'
+            transport_protocol = "udpv6"
 
         else:
-            transport_protocol = 'unknown'
+            transport_protocol = "unknown"
 
         log.info(
-            'SNMP EngineID %s, transportDomain %s, transportAddress %s, '
-            'securityModel %s, securityName %s, securityLevel '
-            '%s' % (hasattr(snmp_engine, 'snmpEngineID') and
-                    snmp_engine.snmpEngineID.prettyPrint() or '<unknown>',
-                    transport_domain, transport_address, security_model,
-                    security_name, security_level))
+            "SNMP EngineID %s, transportDomain %s, transportAddress %s, "
+            "securityModel %s, securityName %s, securityLevel "
+            "%s"
+            % (
+                hasattr(snmp_engine, "snmpEngineID")
+                and snmp_engine.snmpEngineID.prettyPrint()
+                or "<unknown>",
+                transport_domain,
+                transport_address,
+                security_model,
+                security_name,
+                security_level,
+            )
+        )
 
-        return {'snmpEngine': snmp_engine,
-                'transportDomain': rfc1902.ObjectIdentifier(transport_domain),
-                'transportAddress': transport_address,
-                'transportEndpoint': transport_address.getLocalAddress(),
-                'transportProtocol': transport_protocol,
-                'securityModel': security_model,
-                'securityName': security_name,
-                'securityLevel': security_level,
-                'contextEngineId': context_engine_id,
-                'contextName': context_name,
-                'pduType': pdu_type,
-                'nextFlag': next_flag,
-                'setFlag': set_flag}
+        return {
+            "snmpEngine": snmp_engine,
+            "transportDomain": rfc1902.ObjectIdentifier(transport_domain),
+            "transportAddress": transport_address,
+            "transportEndpoint": transport_address.getLocalAddress(),
+            "transportProtocol": transport_protocol,
+            "securityModel": security_model,
+            "securityName": security_name,
+            "securityLevel": security_level,
+            "contextEngineId": context_engine_id,
+            "contextName": context_name,
+            "pduType": pdu_type,
+            "nextFlag": next_flag,
+            "setFlag": set_flag,
+        }
 
     def readVars(self, var_binds, acInfo=None):
         return self._data_file.process_var_binds(
-            var_binds, **self._get_call_context(acInfo, False))
+            var_binds, **self._get_call_context(acInfo, False)
+        )
 
     def readNextVars(self, var_binds, acInfo=None):
         return self._data_file.process_var_binds(
-            var_binds, **self._get_call_context(acInfo, True))
+            var_binds, **self._get_call_context(acInfo, True)
+        )
 
     def writeVars(self, var_binds, acInfo=None):
         return self._data_file.process_var_binds(
-            var_binds, **self._get_call_context(acInfo, False, True))
+            var_binds, **self._get_call_context(acInfo, False, True)
+        )
 
 
-class DataIndexInstrumController(object):
+class DataIndexInstrumController:
     """Data files index as a MIB instrumentation in a dedicated SNMP context"""
 
     index_sub_oid = (1,)
@@ -107,11 +124,10 @@ class DataIndexInstrumController(object):
         self._idx = 1
 
     def __str__(self):
-        return '<index> controller'
+        return "<index> controller"
 
     def readVars(self, var_binds, acInfo=None):
-        return [(vb[0], self._db.get(vb[0], exval.noSuchInstance))
-                for vb in var_binds]
+        return [(vb[0], self._db.get(vb[0], exval.noSuchInstance)) for vb in var_binds]
 
     def _get_next_val(self, key, default):
         try:
@@ -124,22 +140,17 @@ class DataIndexInstrumController(object):
             return key, self._db[key]
 
     def readNextVars(self, var_binds, acInfo=None):
-        return [self._get_next_val(vb[0], exval.endOfMib)
-                for vb in var_binds]
+        return [self._get_next_val(vb[0], exval.endOfMib) for vb in var_binds]
 
     def writeVars(self, var_binds, acInfo=None):
-        return [(vb[0], exval.noSuchInstance)
-                for vb in var_binds]
+        return [(vb[0], exval.noSuchInstance) for vb in var_binds]
 
     def add_data_file(self, *args):
         for idx in range(len(args)):
-            self._db[
-                self._index_oid + (idx + 1, self._idx)
-                ] = rfc1902.OctetString(args[idx])
+            self._db[self._index_oid + (idx + 1, self._idx)] = rfc1902.OctetString(
+                args[idx]
+            )
         self._idx += 1
 
 
-MIB_CONTROLLERS = {
-    datafile.DataFile.layout: MibInstrumController
-}
-
+MIB_CONTROLLERS = {datafile.DataFile.layout: MibInstrumController}

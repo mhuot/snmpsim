@@ -10,4 +10,4 @@ from snmpsim.record import dump
 
 class SapRecord(dump.DumpRecord):
     grammar = sap.SapGrammar()
-    ext = 'sapwalk'
+    ext = "sapwalk"

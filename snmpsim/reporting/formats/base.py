@@ -8,12 +8,11 @@
 #
 
 
-class BaseReporter(object):
-    """Maintain activity metrics.
-    """
+class BaseReporter:
+    """Maintain activity metrics."""
+
     def update_metrics(self, **kwargs):
-        """Process activity update.
-        """
+        """Process activity update."""
 
     def flush(self):
         """Dump accumulated metrics into a JSON file.

@@ -10,5 +10,4 @@ from snmpsim.reporting.formats import base
 
 
 class NullReporter(base.BaseReporter):
-    """Maintain activity metrics.
-    """
+    """Maintain activity metrics."""

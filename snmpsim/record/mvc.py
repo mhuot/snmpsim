@@ -10,4 +10,4 @@ from snmpsim.record import dump
 
 class MvcRecord(dump.DumpRecord):
     grammar = mvc.MvcGrammar()
-    ext = 'MVC'  # an alias to .dump
+    ext = "MVC"  # an alias to .dump

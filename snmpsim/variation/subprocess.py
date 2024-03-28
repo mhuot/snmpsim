@@ -17,71 +17,71 @@ from snmpsim.utils import split
 
 
 def init(**context):
-    moduleContext['settings'] = {}
+    moduleContext["settings"] = {}
 
-    if context['options']:
-        moduleContext['settings'].update(
-            dict([split(x, ':') for x in split(context['options'], ',')]))
+    if context["options"]:
+        moduleContext["settings"].update(
+            dict([split(x, ":") for x in split(context["options"], ",")])
+        )
 
-    if 'shell' not in moduleContext['settings']:
-        moduleContext['settings']['shell'] = sys.platform[:3] == 'win'
+    if "shell" not in moduleContext["settings"]:
+        moduleContext["settings"]["shell"] = sys.platform[:3] == "win"
 
     else:
-        moduleContext['settings']['shell'] = int(
-            moduleContext['settings']['shell'])
+        moduleContext["settings"]["shell"] = int(moduleContext["settings"]["shell"])
 
 
 def variate(oid, tag, value, **context):
     # in --v2c-arch some of the items are not defined
-    transport_domain = transport_address = security_model = '<undefined>'
+    transport_domain = transport_address = security_model = "<undefined>"
     security_name = security_level = context_name = transport_domain
 
-    if 'transportDomain' in context:
-        transport_domain = rfc1902.ObjectName(
-            context['transportDomain']).prettyPrint()
+    if "transportDomain" in context:
+        transport_domain = rfc1902.ObjectName(context["transportDomain"]).prettyPrint()
 
-    if 'transportAddress' in context:
-        transport_address = ':'.join(
-            [str(x) for x in context['transportAddress']])
+    if "transportAddress" in context:
+        transport_address = ":".join([str(x) for x in context["transportAddress"]])
 
-    if 'securityModel' in context:
-        security_model = str(context['securityModel'])
+    if "securityModel" in context:
+        security_model = str(context["securityModel"])
 
-    if 'securityName' in context:
-        security_name = str(context['securityName'])
+    if "securityName" in context:
+        security_name = str(context["securityName"])
 
-    if 'securityLevel' in context:
-        security_level = str(context['securityLevel'])
+    if "securityLevel" in context:
+        security_level = str(context["securityLevel"])
 
-    if 'contextName' in context:
-        context_name = str(context['contextName'])
+    if "contextName" in context:
+        context_name = str(context["contextName"])
 
     args = [
-        (x
-        .replace('@TRANSPORTDOMAIN@', transport_domain)
-        .replace('@TRANSPORTADDRESS@', transport_address)
-        .replace('@SECURITYMODEL@', security_model)
-        .replace('@SECURITYNAME@', security_name)
-        .replace('@SECURITYLEVEL@', security_level)
-        .replace('@CONTEXTNAME@', context_name)
-        .replace('@DATAFILE@', context['dataFile'])
-        .replace('@OID@', str(oid))
-        .replace('@TAG@', tag)
-        .replace('@ORIGOID@', str(context['origOid']))
-        .replace('@ORIGTAG@', str(sum([x for x in context['origValue'].tagSet[0]])))
-        .replace('@ORIGVALUE@', str(context['origValue']))
-        .replace('@SETFLAG@', str(int(context['setFlag'])))
-        .replace('@NEXTFLAG@', str(int(context['nextFlag'])))
-        .replace('@SUBTREEFLAG@', str(int(context['subtreeFlag']))))
-        for x in split(value, ' ')]
+        (
+            x.replace("@TRANSPORTDOMAIN@", transport_domain)
+            .replace("@TRANSPORTADDRESS@", transport_address)
+            .replace("@SECURITYMODEL@", security_model)
+            .replace("@SECURITYNAME@", security_name)
+            .replace("@SECURITYLEVEL@", security_level)
+            .replace("@CONTEXTNAME@", context_name)
+            .replace("@DATAFILE@", context["dataFile"])
+            .replace("@OID@", str(oid))
+            .replace("@TAG@", tag)
+            .replace("@ORIGOID@", str(context["origOid"]))
+            .replace("@ORIGTAG@", str(sum(x for x in context["origValue"].tagSet[0])))
+            .replace("@ORIGVALUE@", str(context["origValue"]))
+            .replace("@SETFLAG@", str(int(context["setFlag"])))
+            .replace("@NEXTFLAG@", str(int(context["nextFlag"])))
+            .replace("@SUBTREEFLAG@", str(int(context["subtreeFlag"])))
+        )
+        for x in split(value, " ")
+    ]
 
-    log.info('subprocess: executing external process "%s"' % ' '.join(args))
+    log.info('subprocess: executing external process "%s"' % " ".join(args))
 
     try:
         handler = subprocess.check_output
 
     except AttributeError:
-        log.info('subprocess: old Python, expect no output!')
+        log.info("subprocess: old Python, expect no output!")
 
         try:
             handler = subprocess.check_call
@@ -90,12 +90,11 @@ def variate(oid, tag, value, **context):
             handler = subprocess.call
 
     try:
-        return oid, tag, handler(
-            args, shell=moduleContext['settings']['shell'])
+        return oid, tag, handler(args, shell=moduleContext["settings"]["shell"])
 
-    except getattr(subprocess, 'CalledProcessError', Exception):
-        log.info('subprocess: external program execution failed')
-        return context['origOid'], tag, context['errorStatus']
+    except getattr(subprocess, "CalledProcessError", Exception):
+        log.info("subprocess: external program execution failed")
+        return context["origOid"], tag, context["errorStatus"]
 
 
 def shutdown(**context):

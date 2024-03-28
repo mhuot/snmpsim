@@ -13,12 +13,17 @@ import pyasn1
 import snmpsim
 
 TITLE = """\
-SNMP Simulator version %s, written by Ilya Etingof <etingof@gmail.com>
-Using foundation libraries: pysmi %s, pysnmp %s, pyasn1 %s.
-Python interpreter: %s
+SNMP Simulator version {}, written by Ilya Etingof <etingof@gmail.com>
+Using foundation libraries: pysmi {}, pysnmp {}, pyasn1 {}.
+Python interpreter: {}
 Documentation and support at https://www.pysnmp.com/snmpsim
-""" % (snmpsim.__version__, pysmi.__version__, pysnmp.__version__,
-       pyasn1.__version__, sys.version)
+""".format(
+    snmpsim.__version__,
+    pysmi.__version__,
+    pysnmp.__version__,
+    pyasn1.__version__,
+    sys.version,
+)
 
 
 def try_load(module, package=None):

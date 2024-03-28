@@ -25,8 +25,8 @@ from snmpsim.reporting.formats import base
 
 
 def camel2snake(name):
-    s1 = re.sub(r'(.)([A-Z][a-z]+)', r'\1_\2', name)
-    return re.sub(r'([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
+    s1 = re.sub(r"(.)([A-Z][a-z]+)", r"\1_\2", name)
+    return re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", s1).lower()
 
 
 def ensure_base_types(f):
@@ -34,15 +34,15 @@ def ensure_base_types(f):
 
     Also turn camel-cased keys into snake case.
     """
+
     def to_base_types(item):
         if isinstance(item, engine.SnmpEngine):
             item = item.snmpEngineID
 
-        if isinstance(item, (univ.Integer, univ.OctetString,
-                             univ.ObjectIdentifier)):
+        if isinstance(item, (univ.Integer, univ.OctetString, univ.ObjectIdentifier)):
             item = item.prettyPrint()
 
-            if item.startswith('0x'):
+            if item.startswith("0x"):
                 item = item[2:]
 
             return item
@@ -78,6 +78,7 @@ def ensure_base_types(f):
 
 class NestingDict(dict):
     """Dict with sub-dict as a defaulted value"""
+
     def __getitem__(self, item):
         try:
             return dict.__getitem__(self, item)
@@ -88,19 +89,19 @@ class NestingDict(dict):
 
 
 class BaseJsonReporter(base.BaseReporter):
-    """Common base for JSON-backed family of reporters.
-    """
+    """Common base for JSON-backed family of reporters."""
 
     REPORTING_PERIOD = 300
-    REPORTING_FORMAT = ''
+    REPORTING_FORMAT = ""
     REPORTING_VERSION = 1
     PRODUCER_UUID = str(uuid.uuid1())
 
     def __init__(self, *args):
         if not args:
             raise error.SnmpsimError(
-                'Missing %s parameter(s). Expected: '
-                '<method>:<reports-dir>[:dumping-period]' % self.__class__.__name__)
+                "Missing %s parameter(s). Expected: "
+                "<method>:<reports-dir>[:dumping-period]" % self.__class__.__name__
+            )
 
         self._reports_dir = os.path.join(args[0], self.REPORTING_FORMAT)
 
@@ -110,7 +111,8 @@ class BaseJsonReporter(base.BaseReporter):
 
             except Exception as exc:
                 raise error.SnmpsimError(
-                    'Malformed reports dumping period: %s' % args[1])
+                    "Malformed reports dumping period: %s" % args[1]
+                )
 
         try:
             if not os.path.exists(self._reports_dir):
@@ -118,17 +120,23 @@ class BaseJsonReporter(base.BaseReporter):
 
         except OSError as exc:
             raise error.SnmpsimError(
-                'Failed to create reports directory %s: '
-                '%s' % (self._reports_dir, exc))
+                "Failed to create reports directory %s: "
+                "%s" % (self._reports_dir, exc)
+            )
 
         self._metrics = NestingDict()
         self._next_dump = time.time() + self.REPORTING_PERIOD
 
         log.debug(
-            'Initialized %s metrics reporter for instance %s, metrics '
-            'directory %s, dumping period is %s seconds' % (
-                self.__class__.__name__, self.PRODUCER_UUID, self._reports_dir,
-                self.REPORTING_PERIOD))
+            "Initialized %s metrics reporter for instance %s, metrics "
+            "directory %s, dumping period is %s seconds"
+            % (
+                self.__class__.__name__,
+                self.PRODUCER_UUID,
+                self._reports_dir,
+                self.REPORTING_PERIOD,
+            )
+        )
 
     def flush(self):
         """Dump accumulated metrics into a JSON file.
@@ -145,26 +153,24 @@ class BaseJsonReporter(base.BaseReporter):
 
         self._next_dump = now + self.REPORTING_PERIOD
 
-        self._metrics['format'] = self.REPORTING_FORMAT
-        self._metrics['version'] = self.REPORTING_VERSION
-        self._metrics['producer'] = self.PRODUCER_UUID
+        self._metrics["format"] = self.REPORTING_FORMAT
+        self._metrics["version"] = self.REPORTING_VERSION
+        self._metrics["producer"] = self.PRODUCER_UUID
 
-        dump_path = os.path.join(self._reports_dir, '%s.json' % now)
+        dump_path = os.path.join(self._reports_dir, "%s.json" % now)
 
-        log.debug('Dumping JSON metrics to %s' % dump_path)
+        log.debug("Dumping JSON metrics to %s" % dump_path)
 
         try:
             json_doc = json.dumps(self._metrics, indent=2)
 
             with tempfile.NamedTemporaryFile(delete=False) as fl:
-                fl.write(json_doc.encode('utf-8'))
+                fl.write(json_doc.encode("utf-8"))
 
             os.rename(fl.name, dump_path)
 
         except Exception as exc:
-            log.error(
-                'Failure while dumping metrics into '
-                '%s: %s' % (dump_path, exc))
+            log.error("Failure while dumping metrics into " "%s: %s" % (dump_path, exc))
 
         self._metrics.clear()
 
@@ -207,7 +213,7 @@ class MinimalJsonReporter(BaseJsonReporter):
     }
     """
 
-    REPORTING_FORMAT = 'minimaljson'
+    REPORTING_FORMAT = "minimaljson"
 
     def update_metrics(self, **kwargs):
         """Process activity update.
@@ -227,22 +233,22 @@ class MinimalJsonReporter(BaseJsonReporter):
 
         now = int(time.time())
 
-        if 'first_update' not in metrics:
-            metrics['first_update'] = now
+        if "first_update" not in metrics:
+            metrics["first_update"] = now
 
-        metrics['last_update'] = now
+        metrics["last_update"] = now
 
         metrics = root_metrics
 
         try:
-            metrics = metrics['transports']
+            metrics = metrics["transports"]
 
-            metrics['total'] = (
-                    metrics.get('total', 0)
-                    + kwargs.get('transport_call_count', 0))
-            metrics['failures'] = (
-                    metrics.get('failures', 0)
-                    + kwargs.get('transport_failure_count', 0))
+            metrics["total"] = metrics.get("total", 0) + kwargs.get(
+                "transport_call_count", 0
+            )
+            metrics["failures"] = metrics.get("failures", 0) + kwargs.get(
+                "transport_failure_count", 0
+            )
 
         except KeyError:
             pass
@@ -250,14 +256,14 @@ class MinimalJsonReporter(BaseJsonReporter):
         metrics = root_metrics
 
         try:
-            metrics = metrics['data_files']
+            metrics = metrics["data_files"]
 
-            metrics['total'] = (
-                    metrics.get('total', 0)
-                    + kwargs.get('datafile_call_count', 0))
-            metrics['failures'] = (
-                    metrics.get('failures', 0)
-                    + kwargs.get('datafile_failure_count', 0))
+            metrics["total"] = metrics.get("total", 0) + kwargs.get(
+                "datafile_call_count", 0
+            )
+            metrics["failures"] = metrics.get("failures", 0) + kwargs.get(
+                "datafile_failure_count", 0
+            )
 
             # TODO: some data is still not coming from snmpsim v2carch core
 
@@ -325,7 +331,8 @@ class FullJsonReporter(BaseJsonReporter):
 
     Where `{token}` is replaced with a concrete value taken from request.
     """
-    REPORTING_FORMAT = 'fulljson'
+
+    REPORTING_FORMAT = "fulljson"
 
     @ensure_base_types
     def update_metrics(self, **kwargs):
@@ -344,51 +351,51 @@ class FullJsonReporter(BaseJsonReporter):
 
         now = int(time.time())
 
-        if 'first_update' not in metrics:
-            metrics['first_update'] = now
+        if "first_update" not in metrics:
+            metrics["first_update"] = now
 
-        metrics['last_update'] = now
+        metrics["last_update"] = now
 
         try:
-            metrics = metrics[kwargs['transport_protocol']]
-            metrics = metrics['%s:%s' % kwargs['transport_endpoint']]
-            metrics['transport_domain'] = kwargs['transport_domain']
-            metrics = metrics[kwargs['transport_address']]
-            metrics['packets'] = (
-                    metrics.get('packets', 0)
-                    + kwargs.get('transport_call_count', 0))
+            metrics = metrics[kwargs["transport_protocol"]]
+            metrics = metrics["%s:%s" % kwargs["transport_endpoint"]]
+            metrics["transport_domain"] = kwargs["transport_domain"]
+            metrics = metrics[kwargs["transport_address"]]
+            metrics["packets"] = metrics.get("packets", 0) + kwargs.get(
+                "transport_call_count", 0
+            )
 
             # TODO: collect these counters
-            metrics['parse_failures'] = 0
-            metrics['auth_failures'] = 0
-            metrics['context_failures'] = 0
+            metrics["parse_failures"] = 0
+            metrics["auth_failures"] = 0
+            metrics["context_failures"] = 0
 
-            metrics = metrics[kwargs['snmp_engine']]
-            metrics = metrics[kwargs['security_model']]
-            metrics = metrics[kwargs['security_level']]
-            metrics = metrics[kwargs['security_name']]
-            metrics = metrics[kwargs['context_engine_id']]
-            metrics = metrics[kwargs['pdu_type']]
-            metrics = metrics[kwargs['data_file']]
+            metrics = metrics[kwargs["snmp_engine"]]
+            metrics = metrics[kwargs["security_model"]]
+            metrics = metrics[kwargs["security_level"]]
+            metrics = metrics[kwargs["security_name"]]
+            metrics = metrics[kwargs["context_engine_id"]]
+            metrics = metrics[kwargs["pdu_type"]]
+            metrics = metrics[kwargs["data_file"]]
 
-            metrics['pdus'] = (
-                    metrics.get('pdus', 0)
-                    + kwargs.get('datafile_call_count', 0))
-            metrics['failures'] = (
-                    metrics.get('failures', 0)
-                    + kwargs.get('datafile_failure_count', 0))
-            metrics['varbinds'] = (
-                    metrics.get('varbinds', 0)
-                    + kwargs.get('varbind_count', 0))
+            metrics["pdus"] = metrics.get("pdus", 0) + kwargs.get(
+                "datafile_call_count", 0
+            )
+            metrics["failures"] = metrics.get("failures", 0) + kwargs.get(
+                "datafile_failure_count", 0
+            )
+            metrics["varbinds"] = metrics.get("varbinds", 0) + kwargs.get(
+                "varbind_count", 0
+            )
 
-            metrics = metrics['variations']
-            metrics = metrics[kwargs['variation']]
-            metrics['calls'] = (
-                    metrics.get('pdus', 0)
-                    + kwargs.get('variation_call_count', 0))
-            metrics['failures'] = (
-                    metrics.get('failures', 0)
-                    + kwargs.get('variation_failure_count', 0))
+            metrics = metrics["variations"]
+            metrics = metrics[kwargs["variation"]]
+            metrics["calls"] = metrics.get("pdus", 0) + kwargs.get(
+                "variation_call_count", 0
+            )
+            metrics["failures"] = metrics.get("failures", 0) + kwargs.get(
+                "variation_failure_count", 0
+            )
 
         except KeyError:
             return

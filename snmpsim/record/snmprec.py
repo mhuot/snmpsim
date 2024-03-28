@@ -15,7 +15,7 @@ from pyasn1.compat import octets
 
 class SnmprecRecord(dump.DumpRecord):
     grammar = snmprec.SnmprecGrammar()
-    ext = 'snmprec'
+    ext = "snmprec"
 
     # https://docs.python.org/3/reference/lexical_analysis.html#literals
     ESCAPE_CHARS = {
@@ -33,7 +33,7 @@ class SnmprecRecord(dump.DumpRecord):
 
     @staticmethod
     def unpack_tag(tag):
-        if tag.endswith('x') or tag.endswith('e'):
+        if tag.endswith("x") or tag.endswith("e"):
             return tag[:-1], tag[-1]
 
         else:
@@ -46,7 +46,6 @@ class SnmprecRecord(dump.DumpRecord):
         escape = False
 
         for char in escaped:
-
             number = ord(char)
 
             if hexdigit is not None:
@@ -66,10 +65,10 @@ class SnmprecRecord(dump.DumpRecord):
 
                 except KeyError:
                     if number == 120:
-                        hexdigit = ''
+                        hexdigit = ""
                         continue
 
-                    raise ValueError('Unknown escape character %c' % char)
+                    raise ValueError("Unknown escape character %c" % char)
 
             elif number == 92:  # '\'
                 escape = True
@@ -83,13 +82,12 @@ class SnmprecRecord(dump.DumpRecord):
         tag, encoding_id = self.unpack_tag(tag)
 
         try:
-            if encoding_id == 'e':
-
+            if encoding_id == "e":
                 value = self.evaluate_raw_string(value)
 
                 return oid, tag, self.grammar.TAG_MAP[tag](value)
 
-            elif encoding_id == 'x':
+            elif encoding_id == "x":
                 if octets.isOctetsType(value):
                     value = octets.octs2str(value)
 
@@ -100,11 +98,11 @@ class SnmprecRecord(dump.DumpRecord):
 
         except Exception as exc:
             raise error.SnmpsimError(
-                'value evaluation error for tag %r, value '
-                '%r: %s' % (tag, value, exc))
+                "value evaluation error for tag %r, value " "%r: %s" % (tag, value, exc)
+            )
 
     def format_value(self, oid, value, **context):
-        if 'nohex' in context and context['nohex']:
+        if "nohex" in context and context["nohex"]:
             hexvalue = None
 
         else:
@@ -113,19 +111,19 @@ class SnmprecRecord(dump.DumpRecord):
         text_tag = self.grammar.get_tag_by_type(value)
 
         if hexvalue:
-            text_tag, text_value = text_tag + 'x', hexvalue
+            text_tag, text_value = text_tag + "x", hexvalue
 
         else:
             try:
                 text_value = repr(value.asOctets())
 
-                if text_value.startswith('b'):
+                if text_value.startswith("b"):
                     text_value = text_value[1:]
 
                 text_value = text_value[1:-1]
 
-                if '\\' in text_value:
-                    text_tag += 'e'
+                if "\\" in text_value:
+                    text_tag += "e"
 
             except AttributeError:
                 text_value = str(value)
@@ -134,8 +132,8 @@ class SnmprecRecord(dump.DumpRecord):
 
 
 class CompressedSnmprecRecord(SnmprecRecord):
-    ext = 'snmprec.bz2'
+    ext = "snmprec.bz2"
 
     @staticmethod
-    def open(path, flags='rb'):
+    def open(path, flags="rb"):
         return bz2.BZ2File(path, flags)

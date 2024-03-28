@@ -14,7 +14,7 @@ from pysnmp.carrier.asyncio.dgram import udp6
 from snmpsim.error import SnmpsimError
 
 
-class TransportEndpointsBase(object):
+class TransportEndpointsBase:
     def __init__(self):
         self.__endpoint = None
 
@@ -37,10 +37,10 @@ class IPv4TransportEndpoints(TransportEndpointsBase):
         f = lambda h, p=161: (h, int(p))
 
         try:
-            h, p = f(*addr.split(':'))
+            h, p = f(*addr.split(":"))
 
         except Exception:
-            raise SnmpsimError('improper IPv4/UDP endpoint %s' % addr)
+            raise SnmpsimError("improper IPv4/UDP endpoint %s" % addr)
 
         return udp.UdpTransport().openServerMode((h, p)), addr
 
@@ -48,18 +48,18 @@ class IPv4TransportEndpoints(TransportEndpointsBase):
 class IPv6TransportEndpoints(TransportEndpointsBase):
     def _addEndpoint(self, addr):
         if not udp6:
-            raise SnmpsimError('This system does not support UDP/IP6')
+            raise SnmpsimError("This system does not support UDP/IP6")
 
-        if addr.find(']:') != -1 and addr[0] == '[':
-            h, p = addr.split(']:')
+        if addr.find("]:") != -1 and addr[0] == "[":
+            h, p = addr.split("]:")
 
             try:
                 h, p = h[1:], int(p)
 
             except Exception:
-                raise SnmpsimError('improper IPv6/UDP endpoint %s' % addr)
+                raise SnmpsimError("improper IPv6/UDP endpoint %s" % addr)
 
-        elif addr[0] == '[' and addr[-1] == ']':
+        elif addr[0] == "[" and addr[-1] == "]":
             h, p = addr[1:-1], 161
 
         else:
@@ -72,31 +72,30 @@ def parse_endpoint(arg, ipv6=False):
     address = arg
 
     # IPv6 notation
-    if ipv6 and address.startswith('['):
-        address = address.replace('[', '').replace(']', '')
+    if ipv6 and address.startswith("["):
+        address = address.replace("[", "").replace("]", "")
 
     try:
-        if ':' in address:
-            address, port = address.rsplit(':', 1)
+        if ":" in address:
+            address, port = address.rsplit(":", 1)
             port = int(port)
 
         else:
             port = 161
 
     except Exception as exc:
-        raise SnmpsimError(
-            'Malformed network endpoint address %s: %s' % (arg, exc))
+        raise SnmpsimError(f"Malformed network endpoint address {arg}: {exc}")
 
     try:
         address, port = socket.getaddrinfo(
-            address, port,
+            address,
+            port,
             socket.AF_INET6 if ipv6 else socket.AF_INET,
             socket.SOCK_DGRAM,
-            socket.IPPROTO_UDP)[0][4][:2]
+            socket.IPPROTO_UDP,
+        )[0][4][:2]
 
     except socket.gaierror as exc:
-        raise SnmpsimError(
-            'Unknown hostname %s: %s' % (address, exc))
+        raise SnmpsimError(f"Unknown hostname {address}: {exc}")
 
     return address, port
-

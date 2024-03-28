@@ -16,7 +16,6 @@ from snmpsim.grammar.abstract import AbstractGrammar
 
 
 class SnmprecGrammar(AbstractGrammar):
-
     ALNUMS = set(octs2ints(str2octs(ascii_letters + digits)))
 
     TAG_MAP = {}
@@ -34,31 +33,30 @@ class SnmprecGrammar(AbstractGrammar):
         rfc1902.Counter64,
         rfc1905.NoSuchObject,
         rfc1905.NoSuchInstance,
-        rfc1905.EndOfMibView
+        rfc1905.EndOfMibView,
     )
 
     for typ in SNMP_TYPES:
-        TAG_MAP[str(sum([x for x in typ.tagSet[0]]))] = typ
+        TAG_MAP[str(sum(x for x in typ.tagSet[0]))] = typ
 
     def build(self, oid, tag, val):
         if oid and tag:
-            return str2octs('%s|%s|%s\n' % (oid, tag, val))
+            return str2octs(f"{oid}|{tag}|{val}\n")
 
-        raise error.SnmpsimError('empty OID/tag <%s/%s>' % (oid, tag))
+        raise error.SnmpsimError(f"empty OID/tag <{oid}/{tag}>")
 
     def parse(self, line):
         try:
-            oid, tag, value = octs2str(line).strip().split('|', 2)
+            oid, tag, value = octs2str(line).strip().split("|", 2)
 
         except Exception as exc:
-            raise error.SnmpsimError(
-                'broken record <%s>: %s' % (line, exc))
+            raise error.SnmpsimError(f"broken record <{line}>: {exc}")
 
         else:
             if oid and tag:
                 return oid, tag, value
 
-            raise error.SnmpsimError('broken record <%s>' % line)
+            raise error.SnmpsimError("broken record <%s>" % line)
 
     # helper functions
 
@@ -67,16 +65,16 @@ class SnmprecGrammar(AbstractGrammar):
             if typ.tagSet[0] == value.tagSet[0]:
                 return tag
 
-        raise Exception('error: unknown type of %s' % (value,))
+        raise Exception(f"error: unknown type of {value}")
 
     def hexify_value(self, value):
-        if value.tagSet in (univ.OctetString.tagSet,
-                            rfc1902.Opaque.tagSet,
-                            rfc1902.IpAddress.tagSet):
-
+        if value.tagSet in (
+            univ.OctetString.tagSet,
+            rfc1902.Opaque.tagSet,
+            rfc1902.IpAddress.tagSet,
+        ):
             nval = value.asNumbers()
 
             for x in nval:
-                if (value.tagSet == rfc1902.IpAddress.tagSet or
-                            x not in self.ALNUMS):
-                    return ''.join(['%.2x' % x for x in nval])
+                if value.tagSet == rfc1902.IpAddress.tagSet or x not in self.ALNUMS:
+                    return "".join(["%.2x" % x for x in nval])
