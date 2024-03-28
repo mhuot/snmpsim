@@ -29,8 +29,8 @@ include = ["docs"]
 
 
 [tool.poetry.dependencies]
-python = "^3.7"
-pysnmp-lextudio = ">=4.4.3"
+python = "^3.8"
+pysnmp-lextudio = "^6.0.0"
 
 [tool.poetry.group.dev.dependencies]
 codecov = "^2.1.12"
@@ -40,6 +40,8 @@ Sphinx = "^5.0.0"
 sphinx-copybutton = "^0.5.2"
 sphinx-sitemap-lextudio = "^2.5.2"
 furo = "^2023.1.1"
+black = "23.1.0"
+pre-commit = "2.21.0"
 
 [tool.poetry_bumpversion.file."snmpsim/__init__.py"]
 
