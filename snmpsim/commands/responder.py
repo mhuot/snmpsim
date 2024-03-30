@@ -487,6 +487,13 @@ configured automatically based on simulation data file paths relative to
         help="SNMP simulation data recordings directory.",
     )
 
+    v3_group.add_argument(
+        "--timeout",
+        type=float,
+        default=0,
+        help="SNMP simulation process timeout",
+    )
+
     args, unparsed_args = parser.parse_known_args()
 
     if args.usage:
@@ -954,6 +961,7 @@ configured automatically based on simulation data file paths relative to
             v3_priv_protos = {}
             agent_udpv4_endpoints = []
             agent_udpv6_endpoints = []
+            timeout = 0
 
             try:
                 v3_engine_id = opt[1]
@@ -1050,11 +1058,14 @@ configured automatically based on simulation data file paths relative to
         elif opt[0] == "--agent-udpv6-endpoint":
             agent_udpv6_endpoints.append(opt[1])
 
+        elif opt[0] == "--timeout":
+            timeout = opt[1]
+
     transport_dispatcher.jobStarted(1)  # server job would never finish
 
     with daemon.PrivilegesOf(args.process_user, args.process_group, final=True):
         try:
-            transport_dispatcher.runDispatcher()
+            transport_dispatcher.runDispatcher(float(timeout))
 
         except KeyboardInterrupt:
             log.info("Shutting down process...")

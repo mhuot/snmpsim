@@ -85,7 +85,7 @@ class MibInstrumController:
             "snmpEngine": snmp_engine,
             "transportDomain": rfc1902.ObjectIdentifier(transport_domain),
             "transportAddress": transport_address,
-            "transportEndpoint": transport_address.getLocalAddress(),
+            # "transportEndpoint": transport_address.getLocalAddress(),
             "transportProtocol": transport_protocol,
             "securityModel": security_model,
             "securityName": security_name,

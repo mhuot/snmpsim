@@ -34,7 +34,8 @@ pysnmp-lextudio = "^6.0.0"
 
 [tool.poetry.group.dev.dependencies]
 codecov = "^2.1.12"
-pytest = "^6.2.5"
+pytest = "^7.2.0"
+pytest-asyncio = "^0.21.1"
 pytest-codecov = "^0.4.0"
 Sphinx = "^5.0.0"
 sphinx-copybutton = "^0.5.2"
