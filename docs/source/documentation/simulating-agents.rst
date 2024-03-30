@@ -4,31 +4,31 @@
 Simulating SNMP Agents
 ======================
 
-The *snmpsim-command-responder* program performs actual SNMP agent simulation
+The ``snmpsim-command-responder`` program performs actual SNMP agent simulation
 based on the simulation data provided.
 
 .. _simulation-data-location:
 
-Simulation data
+Simulation Data
 ---------------
 
-SNMP agents simulation data ends up in :ref:`.snmprec <snmprec>` files. Once SNMP
-request comes in, SNMP Simulator
-:ref:`constructs .snmprec file path <addressing-simulation-data>` and tries to locate
-it by searching through the following directories:
+SNMP agents simulation data ends up in :ref:`.snmprec <snmprec>` files. Once
+SNMP request comes in, SNMP Simulator
+:ref:`constructs .snmprec file path <addressing-simulation-data>` and tries to
+locate it by searching through the following directories:
 
-* ~/.snmpsim/data
-* /usr/local/share/snmpsim/data
-* {python-package-root}/data
+* ``~/.snmpsim/data``
+* ``/usr/local/share/snmpsim/data``
+* ``{python-package-root}/data``
 
 On Windows search paths are:
 
-* \Document and Settings\{user}\Application Data\SNMP Simulator\Data
-* \Program Files\SNMP Simulator\Data
-* {python-package-root}/data
+* ``\Document and Settings\{user}\Application Data\SNMP Simulator\Data``
+* ``\Program Files\SNMP Simulator\Data``
+* ``{python-package-root}/data``
 
 These directories are searched in the specified order till the first match.
-For example, a set up collection of *.snmprec* files would look like:
+For example, a set up collection of ``.snmprec`` files would look like:
 
 .. code-block:: bash
 
@@ -53,38 +53,38 @@ For example, a set up collection of *.snmprec* files would look like:
 
 .. note::
 
-    The `--data-dir` option can be used to prepend custom directories to the
+    The ``--data-dir`` option can be used to prepend custom directories to the
     search path. However, if SNMP engine is configured explicitly (via the
-    `--v3-engine-id` option), then custom data directories will override the
+    ``--v3-engine-id`` option), then custom data directories will override the
     default search path.
 
 .. _snmpsim-command-responder:
 
-SNMP Simulator daemon
+SNMP Simulator Daemon
 ---------------------
 
-The *snmpsim-command-responder* tool hosts multiple independent SNMP Command
+The ``snmpsim-command-responder`` tool hosts multiple independent SNMP Command
 Responders. It can run multiple SNMP engines exchanging data over multiple
-network interfaces. Each SNMP engine instance can serve many independent sets
-of SNMP management objects (MIBs) sourced from :ref:`local .snmprec files
-<snmprec>` or :ref:`variation modules <simulation-with-variation-modules>`.
+network interfaces. Each SNMP engine instance can serve many independent sets of
+SNMP management objects sourced from :ref:`local .snmprec files <snmprec>` or
+:ref:`variation modules <simulation-with-variation-modules>`.
 
 .. _multiple-listen-interfaces:
 
-Multiple network interfaces
+Multiple Network Interfaces
 +++++++++++++++++++++++++++
 
-SNMP Simulator daemon can listen at multiple local IP interfaces and/or UDP ports.
-Just pass multiple *--agent-udpv4-endpoint* / *--agent-udpv6-endpoint* command
-line parameters carrying addresses to listen on. Whenever you wish
-Simulator to listen on thousands of local interfaces and/or ports,
-use the *--agent-udpv4-endpoints-list* / *--agent-udpv6-endpoints-list*
-options. These options expect to refer to a plain text file containing
-newline-separated list of transport endpoints for Simulator to listen on.
+SNMP Simulator daemon can listen at multiple local IP interfaces and/or UDP
+ports. Just pass multiple ``--agent-udpv4-endpoint``/``--agent-udpv6-endpoint``
+command line parameters carrying addresses to listen on. Whenever you wish
+Simulator to listen on thousands of local interfaces and/or ports, use the
+``--agent-udpv4-endpoints-list``/``--agent-udpv6-endpoints-list`` options. These
+options expect to refer to a plain text file containing newline-separated list
+of transport endpoints for Simulator to listen on.
 
 .. code-block:: bash
 
-    $ snmpsim-command-responder --agent-udpv4-endpoint=127.0.0.1:1024 \
+    $ snmpsim-command-responder --agent-udpv4-endpoint=127.0.0.1:1611 \
         --agent-udpv6-endpoint='[::1]:1161'
     Scanning "/home/user/.snmpsim/variation" directory for variation modules...
     no directory
@@ -134,17 +134,17 @@ newline-separated list of transport endpoints for Simulator to listen on.
     Encryption (privacy) key: privatus
     Encryption protocol: DES
     Listening at:
-      UDP/IPv4 endpoint 127.0.0.1:1024, transport ID 1.3.6.1.6.1.1.0
+      UDP/IPv4 endpoint 127.0.0.1:1611, transport ID 1.3.6.1.6.1.1.0
       UDP/IPv6 endpoint ::1:1161, transport ID 1.3.6.1.2.1.100.1.2.0
 
 .. note::
 
-    An unprivileged port *1024* has been chosen in this example to avoid
-    running *snmpsim-command-responder* process as root.
+    An unprivileged port 1611 has been chosen in this example to avoid
+    running ``snmpsim-command-responder`` process as root.
 
 By this point you can run you favorite SNMP Manager to talk to either
 of the two simulated devices through whatever transport you prefer.
-For instance, to talk to simulated Linux box over SNMP v2 through
+For instance, to talk to simulated Linux box over SNMP v2c through
 UDP over IPv4 run:
 
 .. code-block:: bash
@@ -179,17 +179,17 @@ To walk simulated 3com switch over SNMPv3 we'd run:
 
 .. note::
 
-    The *-n <snmp-context>* parameter passed to the *snmpwalk* tool addresses
-    specific simulated device at SNMP Simulator daemon.
+    The ``-n <snmp-context>`` parameter passed to the ``snmpwalk`` tool
+    addresses specific simulated device at SNMP Simulator daemon.
 
 .. _multiple-usm-users:
 
-Multiple USM users
+Multiple USM Users
 ++++++++++++++++++
 
 It is also possible to configure many SNMPv3 (USM) users to Simulator. Each
-set of *--v3-user*, *--v3-auth-key*, *--v3-priv-key* parameters adds one SNMPv3
-user to Simulator.
+set of ``--v3-user``, ``--v3-auth-key``, ``--v3-priv-key`` parameters adds one
+SNMPv3 user to Simulator.
 
 There is no correlation between SNMPv3 users and simulated resources, all users
 have the same view of the Simulator and the same access permissions. But
@@ -215,14 +215,14 @@ different data files e.g. simulated SNMP agents.
     Listening at UDP/IPv4 endpoint 127.0.0.1:161, transport ID 1.3.6.1.6.1.1.0
     ...
 
-SNMP simulator supports many SNMPv3 authentication and encryption algorithms. For
-each user you can configure any authentication and any encryption (privacy)
+SNMP simulator supports many SNMPv3 authentication and encryption algorithms.
+For each user you can configure any authentication and any encryption (privacy)
 algorithm.
 
 .. _auth-algos:
 
 The following authentication algorithms are currently supported (via
-*--v3-auth-proto=<ID>* option):
+``--v3-auth-proto=<ID>`` option):
 
 +--------+----------------+-------------+
 | *ID*   | *Algorithm*    | *Reference* |
@@ -245,7 +245,7 @@ The following authentication algorithms are currently supported (via
 .. _priv-algos:
 
 The following privacy (encryption) algorithms are currently supported (via
-*--v3-priv-proto=<ID>* option):
+``--v3-priv-proto=<ID>`` option):
 
 +------------+------------------------+----------------------+
 | *ID*       | *Algorithm*            | *Reference*          |
@@ -293,25 +293,25 @@ command line.
 
 .. note::
 
-    The *SnmpEngineId* value has to follow
-    `certain format <href="http://tools.ietf.org/html/rfc3411#section-5">`_.
+    The ``SnmpEngineId`` value has to follow
+    `certain format <http://tools.ietf.org/html/rfc3411#section-5>`_.
 
 .. _multiple-snmp-engine-ids:
 
-Multiple SNMP engines
+Multiple SNMP Engines
 +++++++++++++++++++++
 
 SNMP Simulator could run many independent SNMP engines all within
-a single daemon process.  SNMP managers could address particular
+a single daemon process. SNMP managers could address particular
 SNMP Engine instance by querying it at a transport endpoint to which
-SNMP Engine is bound. 
+SNMP Engine is bound.
 
 Each SNMP Engine will have its own set of USM users and could serve
-its own *--data-dir* (or they can share a single directory).
+its own ``--data-dir`` (or they can share a single directory).
 
 The logic of configuring specific parameters to different SNMP engines
 is to "scope" SNMP Engine parameters (like users, transports, data directory)
-within its *--v3-engine-id* fragment of Simulator command-line sequence of
+within its ``--v3-engine-id`` fragment of Simulator command-line sequence of
 options.  For example:
 
 .. code-block:: bash
@@ -338,12 +338,12 @@ options.  For example:
     Listening at UDP/IPv4 endpoint 127.0.0.1:1162, transport ID 1.3.6.1.6.1.1.1
 
 Likewise, to make particular SNMP Engine working with specific data directory,
-another, more specific, *--data-dir* option could be passed after the
-*--v3-engine-id* option.
+another, more specific, ``--data-dir`` option could be passed after the
+``--v3-engine-id`` option.
 
 .. _running-options:
 
-Invocation options
+Invocation Options
 ++++++++++++++++++
 
 To make Simulator listening on SNMP-standard UDP port 161 on a UNIX system,
@@ -360,21 +360,21 @@ its console output into syslog:
 
 .. code-block:: bash
 
-    # snmpsim-command-responder --agent-udpv4-endpoint=127.0.0.1:161 \
+    $ snmpsim-command-responder --agent-udpv4-endpoint=127.0.0.1:161 \
         --process-user=simulator --process-group=simulator \
         --daemonize --logging-method=syslog:local1:debug
 
 .. _logging-options:
 
-Logging options
+Logging Options
 +++++++++++++++
 
-Most of the scripts shipped with the SNMP Simulator package can log to a remote syslog
-server over TCP or UDP:
+Most of the scripts shipped with the SNMP Simulator package can log to a remote
+syslog server over TCP or UDP:
 
 .. code-block:: bash
 
-    # snmpsim-command-responder --agent-udpv4-endpoint=127.0.0.1:161 \
+    $ snmpsim-command-responder --agent-udpv4-endpoint=127.0.0.1:161 \
         --process-user=simulator --process-group=simulator \
         --daemonize --logging-method=syslog:local1:debug:192.168.1.1:514:udp
 
@@ -382,7 +382,6 @@ Finally, Simulator can simply log to a local log file:
 
 .. code-block:: bash
 
-    # snmpsim-command-responder --agent-udpv4-endpoint=127.0.0.1:161 \
+    $ snmpsim-command-responder --agent-udpv4-endpoint=127.0.0.1:161 \
         --process-user=simulator --process-group=simulator \
         --daemonize --logging-method=file:/var/log/snmpsimd.log
-

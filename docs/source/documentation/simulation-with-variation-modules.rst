@@ -1,7 +1,7 @@
 
 .. _simulation-with-variation-modules:
 
-Simulation with variation modules
+Simulation with Variation Modules
 =================================
 
 Without variation modules, simulated SNMP Agents are always static
@@ -19,9 +19,9 @@ and store modified values in a database so they will persist over Simulator
 restarts.
 
 Variation modules may be used for triggering events at other systems. For
-instance the *notification* module will send SNMP TRAP/INFORM SNMP messages
+instance the ``notification`` module will send SNMP TRAP/INFORM SNMP messages
 to pre-configured SNMP Managers on SNMP SET request arrival to
-*snmpsim-command-responder*.
+``snmpsim-command-responder``.
 
 Finally, variation module API let you develop your own code in Python
 to fulfill your special needs and use your variation module with stock
@@ -29,34 +29,35 @@ Simulator.
 
 .. _configuring-simulation-with-variation-modules:
 
-Configuring variation modules
+Configuring Variation Modules
 -----------------------------
 
-To make use of a variation module you will have to *edit* existing
-or create a new data file adding reference to a variation module into 
-the *tag* field by means of
+To make use of a variation module you will have to edit existing
+or create a new data file adding reference to a variation module into
+the ``TAG`` field by means of
 :ref:`recording variation modules <recording-with-variation-modules>`.
 
 Remember :ref:`.snmprec file format <snmprec>` is a sequence of lines having
-the *OID|TAG|VALUE* fields? With variation module in use, the *TAG* field complies
-to its own sub-format - *TAG-ID[:MODULE-ID]*.
+the ``OID|TAG|VALUE`` fields? With variation module in use, the ``TAG`` field
+complies to its own sub-format - ``TAG-ID[:MODULE-ID]``.
 
 Examples
 ++++++++
 
-The following .snmprec file contents will invoke the *writecache* module and cast
-its returned values into ASN.1 OCTET STRING (4) and INTEGER (2) respectively:
+The following ``.snmprec`` file contents will invoke the ``writecache`` module
+and cast its returned values into ASN.1 ``OCTET STRING`` (4) and ``INTEGER`` (2)
+respectively:
 
 .. code-block:: bash
 
     1.3.6.1.2.1.1.3.0|2:volatilecache|value=42
 
-Whenever a subtree is routed to a variation module, *TAG-ID* part is left out
+Whenever a subtree is routed to a variation module, ``TAG-ID`` part is left out
 as there might be no single type for all values within a subtree. Thus the
-empty *TAG-ID* sub-field serves as an indicator of a subtree.
+empty ``TAG-ID`` sub-field serves as an indicator of a subtree.
 
 For example, the following data file will serve all OIDs under 1.3.6.1.2.1.1
-prefix to the "sql" variation module:
+prefix to the ``sql`` variation module:
 
 .. code-block:: bash
 
@@ -65,7 +66,7 @@ prefix to the "sql" variation module:
 The value part is passed to variation module as-is. It is typically holds some
 module-specific configuration or initialization values.
 
-Another example: the following .snmprec line invokes the "notification"
+Another example: the following ``.snmprec`` line invokes the ``notification``
 variation module instructing it to send SNMP INFORM message to SNMP
 manager at 127.0.01:162 over SNMPv3 with specific SNMP params:
 
@@ -81,25 +82,25 @@ the command line.
 
 Simulator will load and bootstrap all variation modules it finds. Some
 modules can accept initialization parameters (like database connection
-credentials) through *snmpsim-command-responder* *--variation-module-options*
+credentials) through ``snmpsim-command-responder --variation-module-options``
 command-line parameter.
 
 For example, the following Simulator invocation will configure its
-*sql* variation module to use sqlite database (sqlite3 Python module)
-and /var/tmp/snmpsim.db database file:
+``sql`` variation module to use SQLite database (``sqlite3`` Python module)
+and ``/var/tmp/snmpsim.db`` database file:
 
 .. code-block:: bash
 
     $ snmpsim-command-responder --variation-module-options=sql:dbtype:sqlite3,\
         database:/var/tmp/snmpsim.db
 
-IF you are using multiple database connections or database types
-all through the *sql* variation module, you could refer to each
-module instance in *.snmprec* files through a so-called variation
+If you are using multiple database connections or database types
+all through the ``sql`` variation module, you could refer to each
+module instance in ``.snmprec`` files through a so-called variation
 module alias.
 
 The following command-line runs Simulator with two instances of the
-*involatilecache* variation module (dbA & dbB) each instance using
+``involatilecache`` variation module (``dbA`` & ``dbB``) each instance using
 distinct database file for storing their persistent values:
 
 .. code-block:: bash
@@ -108,8 +109,8 @@ distinct database file for storing their persistent values:
         --variation-module-options=writecache=dbA:file:/var/tmp/fileA.db \
         --variation-module-options=writecache=dbB:file:/var/tmp/fileB.db
 
-The syntax for *--variation-module-options=* module configuration string is
-comma-separated list of semicolon-separated name:value pairs:
+The syntax for ``--variation-module-options=`` module configuration string is
+comma-separated list of semicolon-separated ``name:value`` pairs:
 
 .. code-block:: bash
 
@@ -125,13 +126,13 @@ tokens as an escaping aid:
     $ snmpsim-command-responder \
         --variation-module-options=writecache:file::C:\TEMP\fileA.db
 
-The same separator escaping method works for module options in *.snmprec* value
-field. The only difference is that *.snmprec* value syntax uses equal sign and
-commands as separators.
+The same separator escaping method works for module options in ``.snmprec``
+value field. The only difference is that ``.snmprec`` value syntax uses equal
+sign and commands as separators.
 
 .. _standard-variation-modules:
 
-Standard variation modules
+Standard Variation Modules
 --------------------------
 
 The following variation modules are shipped with SNMP Simulator:
@@ -155,7 +156,7 @@ The following variation modules are shipped with SNMP Simulator:
 
 .. _variate-numeric:
 
-Numeric module
+Numeric Module
 ++++++++++++++
 
 The numeric module maintains and returns a changing in time integer value.
@@ -163,29 +164,30 @@ The law and rate of changing is configurable. This module is per-OID
 stateful and configurable.
 
 The numeric module accepts the following comma-separated key=value parameters
-in *.snmprec* value field:
+in ``.snmprec`` value field:
 
-* min - the minimum value ever stored and returned by this module.
-  Default is 0.
-* max - the maximum value ever stored and returned by this module.
-  Default is 2\*\*32 or 2\*\*64 (Counter64 type).
-* initial - initial value. Default is min.
-* atime - if non-zero, uses current time for value generation, not Simulator uptime.
-* wrap - if zero, generated value will freeze when reaching 'max'. Otherwise
-  generated value is reset to 'min'.
-* function - defines elapsed-time-to-generated-value relationship. Can be
+* ``min`` - the minimum value ever stored and returned by this module.
+  Default is ``0``.
+* ``max`` - the maximum value ever stored and returned by this module.
+  Default is ``2\*\*32`` or ``2\*\*64`` (``Counter64`` type).
+* ``initial`` - initial value. Default is ``min``.
+* ``atime`` - if non-zero, uses current time for value generation, not Simulator
+  uptime.
+* ``wrap`` - if zero, generated value will freeze when reaching ``max``.
+  Otherwise generated value is reset to ``min``.
+* ``function`` - defines elapsed-time-to-generated-value relationship. Can be
   any of reasonably suitable mathematical function from the
-  math module such as sin, log, pow etc. The only requirement
+  math module such as ``sin``, ``log``, ``pow`` etc. The only requirement
   is that used function accepts a single integer argument.
-  Default is x = f(x).
-* rate - elapsed time scaling factor. Default is 1.
-* scale - function value scaling factor. Default is 1.
-* offset - constant value by which the return value increases on each
-  invocation. Default is 0.
-* deviation - random deviation maximum. Default is 0 which means no
+  Default is ``x = f(x)``.
+* ``rate`` - elapsed time scaling factor. Default is ``1``.
+* ``scale`` - function value scaling factor. Default is ``1``.
+* ``offset`` - constant value by which the return value increases on each
+  invocation. Default is ``0``.
+* ``deviation`` - random deviation maximum. Default is ``0`` which means no
   deviation.
-* cumulative - if non-zero sums up previous value with the newly
-  generated one. This is important when simulating COUNTER values.
+* ``cumulative`` - if non-zero sums up previous value with the newly
+  generated one. This is important when simulating ``COUNTER`` values.
 
 This module generates values by execution of the following formula:
 
@@ -208,8 +210,8 @@ Examples
     # GAUGE object
     1.3.6.1.2.1.2.2.1.14.1|66:numeric|min=5,max=50,initial=25
 
-You are welcome to try the *numeric* module in action at our online
-`public SNMP simulation service <https://www.pysnmp.com/snmp-simulation-service.html>`_:
+You are welcome to try the ``numeric`` module in action at our online
+`public SNMP simulation service <https://www.pysnmp.com/snmp-simulation-service>`_:
 
 .. code-block:: bash
 
@@ -218,41 +220,41 @@ You are welcome to try the *numeric* module in action at our online
     IF-MIB::ifLastChange.1 = Timeticks: (16808012) 1 day, 22:41:20.12
     IF-MIB::ifInOctets.1 = Counter32: 30374688
 
-The numeric module can be used for simulating INTEGER, Counter32, Counter64,
-Gauge32, TimeTicks objects.
+The ``numeric`` module can be used for simulating ``INTEGER``, ``Counter32``,
+``Counter64``, ``Gauge32``, ``TimeTicks`` objects.
 
 .. _variate-delay:
 
-Delay module
+Delay Module
 ++++++++++++
 
 The delay module postpones SNMP request processing for specified number of
 milliseconds.
 
-Delay module accepts the following comma-separated *key=value* parameters
-in *.snmprec* value field:
+Delay module accepts the following comma-separated ``key=value`` parameters
+in ``.snmprec`` value field:
 
-* *value* - holds the var-bind value to be included into SNMP response.
-  In case of a string value containing commas, use the *hexvalue*
-  key instead.
-* *hexvalue* - holds the var-bind value as a sequence of ASCII codes in hex
-  form. Before putting it into var-bind, hexvalue contents will
+* ``value`` - holds the var-bind value to be included into SNMP response.
+  In case of a string value containing commas, use the ``hexvalue`` key instead.
+* ``hexvalue`` - holds the var-bind value as a sequence of ASCII codes in hex
+  form. Before putting it into var-bind, ``hexvalue`` contents will
   be converted into ASCII text.
-* *wait* - specifies for how many milliseconds to delay SNMP response.
-  Default is 500ms. If the value exceeds 999999, request will never
+* ``wait`` - specifies for how many milliseconds to delay SNMP response.
+  Default is ``500ms``. If the value exceeds ``999999``, request will never
   be answered (PDU will be dropped right away).
-* *deviation* - random delay deviation ranges (ms). Default is 0 which means
-  no deviation.
-* *vlist* - a list of triples *comparison:constant:delay* to use on SET
+* ``deviation`` - random delay deviation ranges (ms). Default is ``0`` which
+  means no deviation.
+* ``vlist`` - a list of triples ``comparison:constant:delay`` to use on SET
   operation for choosing delay based on value supplied in request.
-  The following comparison operators are supported: *eq*, *lt*, *gt*.
-* *tlist* - a list of triples *comparison:time:delay* to use for choosing
+  The following comparison operators are supported: ``eq``, ``lt``, ``gt``.
+* ``tlist`` - a list of triples ``comparison:time:delay`` to use for choosing
   request delay based on time of day (seconds, UNIX time).
-  The following comprison operators are supported: *eq*, *lt*, *gt*.
+  The following comparison operators are supported: ``eq``, ``lt``, ``gt``.
 
 .. note::
 
-   Optional tag modifier in :ref:`.snmprec file <snmprec>` is ignored by this variation module.
+   Optional tag modifier in :ref:`.snmprec file <snmprec>` is ignored by this
+   variation module.
 
 Examples
 ~~~~~~~~
@@ -264,8 +266,8 @@ The following entry makes Simulator responding with an integer value of
 
     1.3.6.1.2.1.2.2.1.3.1|2:delay|value=6,wait=100,deviation=200
 
-Here the hexvalue takes shape of an OCTET STRING value '0:12:79:62:f9:40'
-delayed by exactly 0.8 sec:
+Here the ``hexvalue`` takes shape of an ``OCTET STRING`` value
+``0:12:79:62:f9:40`` delayed by exactly 0.8 sec:
 
 .. code-block:: bash
 
@@ -286,7 +288,7 @@ response by 1 sec on value equal to 1.
     1.3.6.1.2.1.2.2.1.8.1|2:delay|vlist=eq:0:100:eq:1:1000,value=1
 
 The entry that follows uses module default on GET/GETNEXT/GETBULK operations,
-however delays response by 0.001 sec if request value is exactly 100,
+however, delays response by 0.001 sec if request value is exactly 100,
 uses module default on values >= 100 but <= 300 (0.5 sec), and drops request
 on values > 300:
 
@@ -294,7 +296,7 @@ on values > 300:
 
     1.3.6.1.2.1.2.2.1.9.1|67:delay|vlist=lt:100:1:gt:300:1000000,value=150
 
-The next example will simulate an unavailable Agent past 01.04.2013 (1364860800
+The next example will simulate an unavailable agent past 01.04.2013 (1364860800
 in UNIX time):
 
 .. code-block:: bash
@@ -747,7 +749,7 @@ relational database. All SNMP operations are supported including
 transactional SET.
 
 Module invocation requires passing database type (sqlite3, psycopg2,
-MySQL and any other compliant to 
+MySQL and any other compliant to
 `Python DB-API <http://www.python.org/dev/peps/pep-0249/#id7">`_
 and importable as a Python module) and connect string which is database
 dependant.
@@ -918,7 +920,7 @@ whenever redis module is invoked in :ref:`recording mode <record-redis>`.
 .. note::
 
     To make string-typed OIDs comparable, sub-OIDs
-    of original OIDs must be left-padded with a good bunch of spaces 
+    of original OIDs must be left-padded with a good bunch of spaces
     (up to 9) so that 1.3.6 will become '         1.         3.         6'.
 
 The .snmprec value is expected to hold more Redis database access
@@ -929,9 +931,9 @@ parameters, specific to OID-value pairs served within selected
   to oid-value collections used for simulation.
 * *period* - number of seconds to switch from one key-space to another within
   the key-spaces-id list.
-* *evalsha* - Redis server side 
+* *evalsha* - Redis server side
   `Lua script <http://redis.io/commands#scripting>`_ to use for
-  accessing oid-value pairs stored in Redis. If this option is not given, 
+  accessing oid-value pairs stored in Redis. If this option is not given,
   bare Redis GET/SET commands will be used instead.
 
 Examples
@@ -959,13 +961,13 @@ For example, the "1234" keyed list can hold the following key spaces:
 
 If *period* parameter is passed through the *.snmprec* record, Simulator will
 automatically change key space every *period* seconds when gathering data
-for SNMP responses. 
+for SNMP responses.
 
 The *key-spaces-id* Redis list can also be manipulated by an external
 application at any moment for the purpose of switching key spaces while
 Simulator is running. Simulated values can also be modified on-the-fly
 by an external application. However, when adding/removing OIDs, not just
-modifying simulation data, care must be taken to keep the 
+modifying simulation data, care must be taken to keep the
 <key space>-oids_ordering list ordered and synchronized with the
 collection of <key space>-OID keys being used for storing simulation
 data.
@@ -1005,11 +1007,11 @@ like this:
 
     $ redis-cli
     127.0.0.1:6379> evalsha "d94bf1756cda4f55bac9fe9bb872f" 1 "4321|1.
-             3.         6.         1.         2.         1.        2.      1.
-             1.         0" "4|linksys router"
+             1.         6.         1.         2.         1.        2.      1.
+             2.         0" "4|linksys router"
     127.0.0.1:6379> evalsha "d94bf1756cda4f55bac9fe9bb872f" 1 "4321|1.
-             3.         6.         1.         2.         1.        2.      1.
-             1.         0"
+             1.         6.         1.         2.         1.        2.      1.
+             2.         0"
     "4|linksys router"
     127.0.0.1:6379>
 
@@ -1022,6 +1024,6 @@ Writing variation modules
 -------------------------
 
 Whenever you consider coding your own variation module, take a look at the
-existing ones. The API is very simple - it basically takes three Python 
+existing ones. The API is very simple - it basically takes three Python
 functions (init, process, shutdown) where process() is expected to return
 a var-bind pair per each invocation.
