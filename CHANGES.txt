@@ -1,3 +1,13 @@
+Revision 1.1.0, released 30-03-2024
+-----------------------------------
+
+- Upgraded pysnmp-lextudio to 6.1.
+
+Revision 1.0.6, released 05-03-2024
+-----------------------------------
+
+- Locked pysnmp-lextudio to 5.0 to avoid breaking changes in 6.0.
+
 Revision 1.0.5, released 15-10-2023
 -----------------------------------
 
@@ -203,7 +213,7 @@ Revision 0.3.1, released 21-01-2017
 Revision 0.3.0, released 28-09-2015
 -----------------------------------
 
-- Simulator now depends on the latest pysnmp features introduced in 
+- Simulator now depends on the latest pysnmp features introduced in
   pysnmp version 4.3.0
 - Introducing initial MIB compiler (PySMI) integration. Most command-line
   tools can now be given MIB symbols rather than OIDs. Requested
@@ -222,7 +232,7 @@ Revision 0.3.0, released 28-09-2015
   many SNMP Engine IDs.
 - SNMP configuration logging reworked for better clarity.
 - The notification module now binds to the same local interface through
-  which Simulator received CommandRequest triggering notification. 
+  which Simulator received CommandRequest triggering notification.
   Also it supports 'bindaddr' option to override the above behaviour on
   a per-OID basis.
 - The sql variation module not switches default SQL transaction isolation
@@ -273,7 +283,7 @@ Revision 0.2.4, released 04-10-2013
 
 - A tool for building SNMP Simulator data files from network
   packet captures added.
-- Automatic online data file index rebuild on data file timestamp 
+- Automatic online data file index rebuild on data file timestamp
   change implemented.
 - The sql variation module tweaked to be better compliant with
   Python DB API 2.0 so that it can now work with MySQL out of
@@ -286,10 +296,10 @@ Revision 0.2.4, released 04-10-2013
   to specify the initial transport ID instance for each transport domain
   configured.
 - Variation module API changed to allow recording module to communicate
-  to its host time of the next probe to occur. 
+  to its host time of the next probe to occur.
 - Variation module API changed so that SNMP engine ID is only available
   in variate() context. This is due to the new multi-engine ID design.
-- New --args-from-file command-line parameter added to snmpsimd.py to 
+- New --args-from-file command-line parameter added to snmpsimd.py to
   allow a large number of SNMP engines configured to Simulator. The
   --agent-endpoint\*-list= family of options discontinued in favor of
   multiple --agent-\*-endpoint options read from args file.
@@ -323,7 +333,7 @@ Revision 0.2.3, released 01-08-2013
   * Default automatic value ranges for integers are now much smaller
     to increase a chance of automatic selection.
   * Values ranges can now be set for each SNMP type separately.
-  * When generating values, make N probes choosing random values for 
+  * When generating values, make N probes choosing random values for
     better automation
   * Produced values are sorted and de-duplicated.
   * Fix to OID range checking when specified at the command-line.
@@ -413,7 +423,7 @@ Revision 0.2.1, released 07-04-2013
   SET value.
 - The delay.py variation module extended to support variation based on
   SET value and time of date.
-- Format of the OID stored in SQL database changed in a backward incompatible 
+- Format of the OID stored in SQL database changed in a backward incompatible
   manner.
 - Recording functionality added to the delay.py and numeric.py modules.
 - The new "multiplex" variation module added to be able to record
@@ -456,7 +466,7 @@ Revision 0.2.0, released 12-03-2013
   which is a legacy term.
 - Data files and variation modules are now installed into platform-specific
   directories.
-- Data files and variation modules are now looked up at several, 
+- Data files and variation modules are now looked up at several,
   platform-specific, locations including $HOME/.snmpsim
 - Simulator data files indices are now created and kept in a dedicated
   temporary directory which is also configurable though snmpsimd command-line.
@@ -475,7 +485,7 @@ Revision 0.1.6, released 30-01-2013
 - Shared device files now supported. Snapshots can now be indicated
   as shared through a symbolic link. Managers can use different
   credentials to access and modify the same set of Managed Objects.
-  
+
 Revision 0.1.5, released 23-08-2012
 -----------------------------------
 
@@ -495,7 +505,7 @@ Revision 0.1.4, released 25-07-2012
   Transport ID and source address implemented (for --v2c-arch mode).
 - UDP/IPv6 and UNIX domain socket transports support added to
   snmpsimd.py and snmprec.py tools.
-- The snmpsimd.py and snmprec.py tools now support additional SNMPv3 
+- The snmpsimd.py and snmprec.py tools now support additional SNMPv3
   authentication (SHA) and encryption (3DES, AES192, AES256) algorithms
   provided by pysnmp.
 - Simulator now supports binding to and listening at multiple local
