@@ -5,9 +5,10 @@ SNMP Simulator
 
 Simulation plays a crucial role in the network management tool ecosystem as it
 allows developers and network administrators to test and validate their
-applications and systems in a controlled environment. By simulating various SNMP
-speaking devices, it becomes possible to replicate real-world scenarios and
-evaluate the behavior of network management tools under different conditions.
+applications and systems in a controlled environment. By simulating various
+SNMP speaking devices, it becomes possible to replicate real-world scenarios
+and evaluate the behavior of network management tools under different
+conditions.
 
 PySNMP provides a mature and reliable solution for SNMP simulation. With
 PySNMP's SNMP Simulator tool, users can easily create virtual SNMP devices that
@@ -61,8 +62,8 @@ We maintain a detailed log of changes:
 Download
 --------
 
-The easiest way to download and install SNMP simulator is to ``pip install`` the
-latest version from PyPI:
+The easiest way to download and install SNMP simulator is to ``pip install``
+the latest version from PyPI:
 
 .. code-block:: bash
 

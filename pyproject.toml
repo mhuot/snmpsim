@@ -37,12 +37,13 @@ codecov = "^2.1.12"
 pytest = "^7.2.0"
 pytest-asyncio = "^0.21.1"
 pytest-codecov = "^0.4.0"
-Sphinx = "^5.0.0"
+Sphinx = "^7.0.0"
 sphinx-copybutton = "^0.5.2"
 sphinx-sitemap-lextudio = "^2.5.2"
 furo = "^2023.1.1"
 black = "23.1.0"
 pre-commit = "2.21.0"
+doc8 = "^1.1.1"
 
 [tool.poetry_bumpversion.file."snmpsim/__init__.py"]
 
