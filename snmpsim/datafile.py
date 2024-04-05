@@ -254,7 +254,7 @@ class DataFile(AbstractLayout):
 
 def get_data_files(tgt_dir, top_len=None):
     if top_len is None:
-        top_len = len(tgt_dir.split(os.path.sep))
+        top_len = len(tgt_dir.rstrip(os.path.sep).split(os.path.sep))
 
     dir_content = []
 
