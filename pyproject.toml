@@ -44,6 +44,7 @@ furo = "^2023.1.1"
 black = "23.1.0"
 pre-commit = "2.21.0"
 doc8 = "^1.1.1"
+sphinx-notfound-page = "^1.0.0"
 
 [tool.poetry_bumpversion.file."snmpsim/__init__.py"]
 
