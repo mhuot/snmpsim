@@ -23,7 +23,7 @@ def setup_args():
     data_dir = os.path.join(base_dir, "data", "UPS")
     test_args = [
         "responder.py",
-        f"--data-dir={data_dir}/",
+        f"--data-dir={data_dir}{os.sep}",
         f"--agent-udpv4-endpoint=127.0.0.1:{PORT_NUMBER}",
         f"--timeout={TIME_OUT}",
     ]

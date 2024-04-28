@@ -253,57 +253,70 @@ class DataFile(AbstractLayout):
 
 
 def get_data_files(tgt_dir, top_len=None):
+    # If top_len is not provided, calculate it based on the target directory
     if top_len is None:
         top_len = len(tgt_dir.rstrip(os.path.sep).split(os.path.sep))
 
+    # Start processing the directory
+    return process_directory(tgt_dir, top_len)
+
+def process_directory(tgt_dir, top_len):
+    # Initialize an empty list to store directory content
     dir_content = []
-
+    # Iterate over each file in the target directory
     for d_file in os.listdir(tgt_dir):
+        # Get the full path of the file
         full_path = os.path.join(tgt_dir, d_file)
-
+        # Get the inode information of the file
         inode = os.lstat(full_path)
-
+        # If the file is a symbolic link, process it
         if stat.S_ISLNK(inode.st_mode):
-            rel_path = full_path.split(os.path.sep)[top_len:]
-            full_path = os.readlink(full_path)
-
-            if not os.path.isabs(full_path):
-                full_path = os.path.join(tgt_dir, full_path)
-
-            inode = os.stat(full_path)
-
-        else:
-            rel_path = full_path.split(os.path.sep)[top_len:]
-
+            full_path, inode = process_symlink(full_path, tgt_dir)
+        # Calculate the relative path of the file
+        rel_path = full_path.split(os.path.sep)[top_len:]
+        # If the file is a directory, recursively process it
         if stat.S_ISDIR(inode.st_mode):
             dir_content += get_data_files(full_path, top_len)
-            continue
-
-        if not stat.S_ISREG(inode.st_mode):
-            continue
-
-        for dExt in variation.RECORD_TYPES:
-            if d_file.endswith(dExt):
-                break
-
-        else:
-            continue
-
-        # just the file name would serve for agent identification
-        if rel_path[0] == SELF_LABEL:
-            rel_path = rel_path[1:]
-
-        if len(rel_path) == 1 and rel_path[0] == SELF_LABEL + os.path.extsep + dExt:
-            rel_path[0] = rel_path[0][4:]
-
-        ident = os.path.join(*rel_path)
-        ident = ident[: -len(dExt) - 1]
-        ident = ident.replace(os.path.sep, "/")
-
-        dir_content.append((full_path, variation.RECORD_TYPES[dExt], ident))
-
+        # If the file is a regular file, process it
+        elif stat.S_ISREG(inode.st_mode):
+            dir_content += process_file(d_file, full_path, rel_path)
+    # Return the directory content
     return dir_content
 
+def process_symlink(full_path, tgt_dir):
+    # Read the target of the symbolic link
+    full_path = os.readlink(full_path)
+    # If the target is not an absolute path, prepend the target directory
+    if not os.path.isabs(full_path):
+        full_path = os.path.join(tgt_dir, full_path)
+    # Get the inode information of the target file
+    inode = os.stat(full_path)
+    # Return the full path and inode
+    return full_path, inode
+
+def process_file(d_file, full_path, rel_path):
+    # Check if the file extension matches any of the record types
+    for dExt in variation.RECORD_TYPES:
+        if d_file.endswith(dExt):
+            # If it does, process the file extension
+            return process_file_extension(d_file, full_path, rel_path, dExt)
+    # If it does not, return an empty list
+    return []
+
+def process_file_extension(d_file, full_path, rel_path, dExt):
+    # Process the relative path to create an identifier for the file
+    if rel_path[0] == SELF_LABEL:
+        rel_path = rel_path[1:]
+    if len(rel_path) == 1 and rel_path[0] == SELF_LABEL + os.path.extsep + dExt:
+        rel_path[0] = rel_path[0][4:]
+    # Join the elements of the relative path to create the identifier
+    ident = os.path.join(*rel_path)
+    # Remove the file extension from the identifier
+    ident = ident[: -len(dExt) - 1]
+    # Replace any path separators in the identifier with a forward slash
+    ident = ident.replace(os.path.sep, "/")
+    # Return a tuple containing the full path, the record type, and the identifier
+    return [(full_path, variation.RECORD_TYPES[dExt], ident)]
 
 def probe_context(transport_domain, transport_address, context_engine_id, context_name):
     """Suggest variations of context name based on request data"""
