@@ -241,9 +241,10 @@ def variate(oid, tag, value, **context):
         else:
             transportDomain = context["transportDomain"][: len(target.transportDomain)]
             if transportDomain == target.transportDomain:
-                localAddress = snmpEngine.transportDispatcher.getTransport(
-                    context["transportDomain"]
-                ).getLocalAddress()[0]
+                # localAddress = snmpEngine.transportDispatcher.getTransport(
+                #     context["transportDomain"]
+                # ).getLocalAddress()[0]
+                pass
 
             else:
                 log.info(
