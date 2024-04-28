@@ -39,7 +39,7 @@ def setup_args():
 @pytest.fixture
 def run_app_in_background():
     def target():
-        debug.setLogger(debug.Debug("all"))
+        # debug.setLogger(debug.Debug("msgproc"))
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         try:

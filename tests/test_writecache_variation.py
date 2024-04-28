@@ -10,8 +10,8 @@ from pysnmp import debug
 
 import asyncio
 
-TIME_OUT = 5
-PORT_NUMBER = 1611
+TIME_OUT = 10
+PORT_NUMBER = 1613
 
 
 @pytest.fixture(autouse=True)

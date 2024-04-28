@@ -11,7 +11,7 @@ from pysnmp import debug
 import asyncio
 
 TIME_OUT = 5
-PORT_NUMBER = 1611
+PORT_NUMBER = 1612
 
 
 @pytest.fixture(autouse=True)
