@@ -34,7 +34,7 @@ Download
 
 SNMP simulator software is freely available for download from
 [PyPI](https://pypi.org/project/snmpsim-lextudio/) and
-[project site](https://www.pysnmp.com/snmpsim/download.html).
+[project site](https://docs.lextudio.com/snmpsim/quick-start).
 
 Installation
 ------------
@@ -102,10 +102,6 @@ data from it.
 Besides static files, SNMP simulator can be configured to call its plugin modules
 for simulation data. We ship plugins to interface SQL and noSQL databases, file-based
 key-value stores and other sources of information.
-
-We maintain publicly available SNMP simulator instance at 
-[demo.pysnmp.com](https://www.pysnmp.com/snmpsim/public-snmp-simulator.html). You are
-welcome to query it as much as you wish.
 
 Besides stand-alone deployment described above, third-party
 [SNMP Simulator control plane](https://github.com/lextudio/snmpsim-control-plane)
