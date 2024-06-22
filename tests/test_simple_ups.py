@@ -71,6 +71,7 @@ async def test_main_with_specific_args(run_app_in_background, capsys):
                 "localhost",
                 PORT_NUMBER,
                 ObjectType(ObjectIdentity("SNMPv2-MIB", "sysDescr", 0)),
+                retries=0,
             )
 
             assert errorIndication is None
@@ -91,6 +92,7 @@ async def test_main_with_specific_args(run_app_in_background, capsys):
                 "localhost",
                 PORT_NUMBER,
                 ObjectType(ObjectIdentity("SNMPv2-MIB", "sysDescr", 0)),
+                retries=0,
             )
 
             assert errorIndication is None
@@ -118,6 +120,7 @@ async def test_main_with_specific_args(run_app_in_background, capsys):
             UdpTransportTarget(("localhost", PORT_NUMBER), retries=0),
             ContextData(contextName=OctetString("public").asOctets()),
             ObjectType(ObjectIdentity("SNMPv2-MIB", "sysDescr", 0)),
+            retries=0,
         )
 
         assert errorIndication is None
