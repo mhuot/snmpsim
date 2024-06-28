@@ -1,6 +1,7 @@
 
 SNMP Simulator
---------------
+==============
+
 [![PyPI](https://img.shields.io/pypi/v/snmpsim-lextudio.svg?maxAge=2592000)](https://pypi.org/project/snmpsim-lextudio/)
 [![PyPI Downloads](https://img.shields.io/pypi/dd/snmpsim-lextudio)](https://pypi.python.org/pypi/snmpsim-lextudio/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/snmpsim-lextudio.svg)](https://pypi.org/project/snmpsim-lextudio/)
@@ -51,14 +52,14 @@ How to use SNMP simulator
 Once installed, invoke `snmpsim-command-responder` and point it to a directory
 with simulation data:
 
-```
+``` bash
 $ snmpsim-command-responder --data-dir=./data --agent-udpv4-endpoint=127.0.0.1:1024
 ```
 
 Simulation data is stored in simple plaint-text files having OID|TYPE|VALUE
 format:
 
-```
+``` bash
 $ cat ./data/public.snmprec
 1.3.6.1.2.1.1.1.0|4|Linux 2.6.25.5-smp SMP Tue Jun 19 14:58:11 CDT 2007 i686
 1.3.6.1.2.1.1.2.0|6|1.3.6.1.4.1.8072.3.2.10
@@ -73,7 +74,7 @@ IP addresses into data files.
 
 You can immediately generate simulation data file by querying existing SNMP agent:
 
-```
+``` bash
 $ snmpsim-record-commands --agent-udpv4-endpoint=demo.pysnmp.com \
     --output-file=./data/public.snmprec
 SNMP version 2c, Community name: public
@@ -85,7 +86,7 @@ OIDs dumped: 182, elapsed: 11.97 sec, rate: 7.00 OIDs/sec, errors: 0
 
 Alternatively, you could build simulation data from a MIB file:
 
-```
+``` bash
 $ snmpsim-record-mibs --output-file=./data/public.snmprec \
     --mib-module=IF-MIB
 # MIB module: IF-MIB, from the beginning till the end
