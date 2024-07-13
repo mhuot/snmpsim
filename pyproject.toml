@@ -30,7 +30,7 @@ include = ["docs"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-pysnmp-lextudio = "^6.1.0"
+pysnmp-lextudio = "^6.0.0"
 
 [tool.poetry.group.dev.dependencies]
 codecov = "^2.1.12"
