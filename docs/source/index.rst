@@ -67,10 +67,10 @@ the latest version from PyPI:
 
 .. code-block:: bash
 
-   $ pip install snmpsim-lextudio
+   $ pip install snmpsim
 
 Alternatively, you can `download <https://github.com/lextudio/snmpsim/releases>`_
-the latest release from GitHub or `PyPI <https://pypi.org/project/snmpsim-lextudio/>`_.
+the latest release from GitHub or `PyPI <https://pypi.org/project/snmpsim/>`_.
 
 License
 -------

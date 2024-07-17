@@ -2,9 +2,9 @@
 SNMP Simulator
 ==============
 
-[![PyPI](https://img.shields.io/pypi/v/snmpsim-lextudio.svg?maxAge=2592000)](https://pypi.org/project/snmpsim-lextudio/)
-[![PyPI Downloads](https://img.shields.io/pypi/dd/snmpsim-lextudio)](https://pypi.python.org/pypi/snmpsim-lextudio/)
-[![Python Versions](https://img.shields.io/pypi/pyversions/snmpsim-lextudio.svg)](https://pypi.org/project/snmpsim-lextudio/)
+[![PyPI](https://img.shields.io/pypi/v/snmpsim.svg?maxAge=2592000)](https://pypi.org/project/snmpsim/)
+[![PyPI Downloads](https://img.shields.io/pypi/dd/snmpsim)](https://pypi.python.org/pypi/snmpsim/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/snmpsim.svg)](https://pypi.org/project/snmpsim/)
 [![GitHub license](https://img.shields.io/badge/license-BSD-blue.svg)](https://raw.githubusercontent.com/lextudio/snmpsim/master/LICENSE.txt)
 
 This is a pure-Python, open source and free implementation of SNMP agents simulator
@@ -34,7 +34,7 @@ Download
 --------
 
 SNMP simulator software is freely available for download from
-[PyPI](https://pypi.org/project/snmpsim-lextudio/) and
+[PyPI](https://pypi.org/project/snmpsim/) and
 [project site](https://docs.lextudio.com/snmpsim/quick-start).
 
 Installation
@@ -43,7 +43,7 @@ Installation
 Just run:
 
 ```bash
-$ pip install snmpsim-lextudio
+$ pip install snmpsim
 ```
 
 How to use SNMP simulator
@@ -130,5 +130,5 @@ I'm interested in bug reports, fixes, suggestions and improvements. Your
 pull requests are very welcome!
 
 Copyright (c) 2010-2019, [Ilya Etingof](mailto:etingof@gmail.com).
-Copyright (c) 2022, [LeXtudio Inc.](mailto:support@lextudio.com).
+Copyright (c) 2022-2024, [LeXtudio Inc.](mailto:support@lextudio.com).
 All rights reserved.

@@ -20,12 +20,12 @@ Simulator into it.
    $ pyenv local 3.12
    $ pip install pipenv
    $ pipenv --python 3.12
-   $ pipenv install snmpsim-lextudio
+   $ pipenv install snmpsim
 
 .. note::
 
    You might want to use some existing data files to get started quickly. Then,
-   you can install ``snmpsim-data-lextudio`` package as well. You can learn more
+   you can install ``snmpsim-data`` package as well. You can learn more
    about it in the `SNMP Simulator Data`_.
 
 Run SNMP Simulator
@@ -131,7 +131,7 @@ as a donor device:
 
 .. note::
 
-   We host many simulation data files in ``snmpsim-data-lextudio`` package.
+   We host many simulation data files in ``snmpsim-data`` package.
    You can learn more about them in the `SNMP Simulator Data`_.
 
 Simulate from MIB
