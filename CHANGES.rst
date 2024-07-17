@@ -1,3 +1,13 @@
+Revision 1.1.2, released on Jul 16, 2024
+----------------------------------------
+
+- Removed package postfix.
+
+Revision 1.1.1, released on Jun 28, 2024
+----------------------------------------
+
+- Fixed a file path bug.
+
 Revision 1.1.0, released on Mar 30, 2024
 ----------------------------------------
 
