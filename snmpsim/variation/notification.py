@@ -13,7 +13,7 @@ from snmpsim import error
 from snmpsim import log
 from snmpsim.grammar.snmprec import SnmprecGrammar
 from snmpsim.record.snmprec import SnmprecRecord
-from snmpsim.utils import split
+from snmpsim.utils import run_in_new_loop, split
 
 
 def init(**context):
@@ -296,15 +296,17 @@ def variate(oid, tag, value, **context):
             ObjectIdentity(args["trapoid"])
         ).addVarBinds(*varBinds)
 
-        sendNotification(
-            snmpEngine,
-            authData,
-            target,
-            ContextData(),
-            args["ntftype"],
-            notificationType,
-            cbFun=_cbFun,
-            cbCtx=(oid, value),
+        run_in_new_loop(
+            sendNotification(
+                snmpEngine,
+                authData,
+                target,
+                ContextData(),
+                args["ntftype"],
+                notificationType,
+                cbFun=_cbFun,
+                cbCtx=(oid, value),
+            )
         )
 
         log.info(
