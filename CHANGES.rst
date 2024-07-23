@@ -1,3 +1,8 @@
+Revision 1.1.3, released on Jul 23, 2024
+----------------------------------------
+
+- Fixed notification variation module.
+
 Revision 1.1.2, released on Jul 16, 2024
 ----------------------------------------
 
