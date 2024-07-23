@@ -20,7 +20,7 @@ def setup_args():
     original_argv = sys.argv
     # Define your test arguments here
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    data_dir = os.path.join(base_dir, "data", "UPS2")
+    data_dir = os.path.join(base_dir, "data", "writecache")
     test_args = [
         "responder.py",
         f"--data-dir={data_dir}",
