@@ -1,17 +1,15 @@
+# SNMP Simulator
 
-SNMP Simulator
-==============
-
-[![PyPI](https://img.shields.io/pypi/v/snmpsim.svg?maxAge=2592000)](https://pypi.org/project/snmpsim/)
+[![Become a Sponsor](https://img.shields.io/badge/Become%20a%20Sponsor-lextudio-orange.svg?style=for-readme)](https://github.com/sponsors/lextudio)
+[![PyPI](https://img.shields.io/pypi/v/snmpsim.svg)](https://pypi.python.org/pypi/snmpsim)
 [![PyPI Downloads](https://img.shields.io/pypi/dd/snmpsim)](https://pypi.python.org/pypi/snmpsim/)
-[![Python Versions](https://img.shields.io/pypi/pyversions/snmpsim.svg)](https://pypi.org/project/snmpsim/)
-[![GitHub license](https://img.shields.io/badge/license-BSD-blue.svg)](https://raw.githubusercontent.com/lextudio/snmpsim/master/LICENSE.txt)
+[![Python Versions](https://img.shields.io/pypi/pyversions/snmpsim.svg)](https://pypi.python.org/pypi/snmpsim/)
+[![GitHub license](https://img.shields.io/badge/license-BSD-blue.svg)](https://raw.githubusercontent.com/lextudio/snmpsim/master/LICENSE.rst)
 
 This is a pure-Python, open source and free implementation of SNMP agents simulator
 distributed under 2-clause [BSD license](https://www.pysnmp.com/snmpsim/license.html).
 
-Features
---------
+## Features
 
 * SNMPv1/v2c/v3 support
 * SNMPv3 USM supports MD5/SHA/SHA224/SHA256/SHA384/SHA512 auth and
@@ -30,15 +28,13 @@ Features
 * Pure-Python, easy to deploy and highly portable
 * Can be extended by loadable Python snippets
 
-Download
---------
+## Download
 
 SNMP simulator software is freely available for download from
 [PyPI](https://pypi.org/project/snmpsim/) and
 [project site](https://docs.lextudio.com/snmpsim/quick-start).
 
-Installation
-------------
+## Installation
 
 Just run:
 
@@ -46,8 +42,7 @@ Just run:
 $ pip install snmpsim
 ```
 
-How to use SNMP simulator
--------------------------
+## How to use SNMP simulator
 
 Once installed, invoke `snmpsim-command-responder` and point it to a directory
 with simulation data:
@@ -109,25 +104,22 @@ Besides stand-alone deployment described above, third-party
 project offers REST API managed mass deployment of multiple `snmpsim-command-responder`
 instances.
 
-Documentation
--------------
+## Documentation
 
 Detailed information on SNMP simulator usage could be found at
 [snmpsim site](https://www.pysnmp.com/snmpsim/).
 
-Getting help
-------------
+## Getting help
 
 If something does not work as expected,
 [open an issue](https://github.com/lextudio/pysnmp/issues) at GitHub or
-post your question [on Stack Overflow](https://stackoverflow.com/questions/ask)
-or try browsing snmpsim [mailing list archives](https://sourceforge.net/p/snmpsim/mailman/snmpsim-users/).
+post your question [on Stack Overflow](https://stackoverflow.com/questions/ask).
 
-Feedback and collaboration
+## Feedback and collaboration
 --------------------------
 
-I'm interested in bug reports, fixes, suggestions and improvements. Your
-pull requests are very welcome!
+Bug reports, fixes, suggestions, improvements, and your pull requests are very
+welcome!
 
 Copyright (c) 2010-2019, [Ilya Etingof](mailto:etingof@gmail.com).
 Copyright (c) 2022-2024, [LeXtudio Inc.](mailto:support@lextudio.com).
