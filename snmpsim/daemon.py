@@ -111,6 +111,9 @@ else:
             self._olduid = self._oldgid = None
 
         def __enter__(self):
+            if os.getenv("SNMPSIM_ALLOW_ROOT") == "true":
+                return
+
             if os.getuid() != 0:
                 if self._uname or self._gname:
                     try:

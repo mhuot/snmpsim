@@ -564,13 +564,13 @@ files = [
 
 [[package]]
 name = "importlib-metadata"
-version = "8.1.0"
+version = "8.2.0"
 description = "Read metadata from Python packages"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "importlib_metadata-8.1.0-py3-none-any.whl", hash = "sha256:3cd29f739ed65973840b068e3132135ce954c254d48b5b640484467ef7ab3c8c"},
-    {file = "importlib_metadata-8.1.0.tar.gz", hash = "sha256:fcdcb1d5ead7bdf3dd32657bb94ebe9d2aabfe89a19782ddc32da5041d6ebfb4"},
+    {file = "importlib_metadata-8.2.0-py3-none-any.whl", hash = "sha256:11901fa0c2f97919b288679932bb64febaeacf289d18ac84dd68cb2e74213369"},
+    {file = "importlib_metadata-8.2.0.tar.gz", hash = "sha256:72e8d4399996132204f9a16dcc751af254a48f8d1b20b9ff0f98d4a8f901e73d"},
 ]
 
 [package.dependencies]
@@ -1152,13 +1152,13 @@ rtd = ["ipython", "myst-nb", "sphinx", "sphinx-book-theme", "sphinx-examples"]
 
 [[package]]
 name = "sphinx-notfound-page"
-version = "1.0.2"
+version = "1.0.4"
 description = "Sphinx extension to build a 404 page with absolute URLs"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "sphinx_notfound_page-1.0.2-py3-none-any.whl", hash = "sha256:dbfb4fb05d8ccdaf28c19c3452231eeab73917fd475dcafebbf3babb84343800"},
-    {file = "sphinx_notfound_page-1.0.2.tar.gz", hash = "sha256:7b2759ca79cbaa44422325f540b91542b1ce411cd31217c20cd6ba1e6cffb5ec"},
+    {file = "sphinx_notfound_page-1.0.4-py3-none-any.whl", hash = "sha256:f7c26ae0df3cf3d6f38f56b068762e6203d0ebb7e1c804de1059598d7dd8b9d8"},
+    {file = "sphinx_notfound_page-1.0.4.tar.gz", hash = "sha256:2a52f49cd367b5c4e64072de1591cc367714098500abf4ecb9a3ecb4fec25aae"},
 ]
 
 [package.dependencies]

@@ -116,7 +116,6 @@ If something does not work as expected,
 post your question [on Stack Overflow](https://stackoverflow.com/questions/ask).
 
 ## Feedback and collaboration
---------------------------
 
 Bug reports, fixes, suggestions, improvements, and your pull requests are very
 welcome!
