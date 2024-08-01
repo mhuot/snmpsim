@@ -1,3 +1,9 @@
+Revision 1.1.4, released on Aug 01, 2024
+----------------------------------------
+
+- Added SNMP_ALLOW_ROOT environment variable to allow running SNMP simulator
+  as root. This is a security risk and should be used with caution.
+
 Revision 1.1.3, released on Jul 23, 2024
 ----------------------------------------
 
