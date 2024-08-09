@@ -1,3 +1,9 @@
+Revision 1.1.5, released on Aug 09, 2024
+----------------------------------------
+
+- Implemented the arguments "--debug" and "--debug-asn1" in responders
+  to enable debugging mode.
+
 Revision 1.1.4, released on Aug 01, 2024
 ----------------------------------------
 
