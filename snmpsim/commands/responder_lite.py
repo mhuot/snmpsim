@@ -226,6 +226,12 @@ def main():
 
     args = parser.parse_args()
 
+    if args.debug:
+        pysnmp_debug.setLogger(pysnmp_debug.Debug(*args.debug))
+
+    if args.debug_asn1:
+        pyasn1_debug.setLogger(pyasn1_debug.Debug(*args.debug_asn1))
+
     if args.cache_dir:
         confdir.cache = args.cache_dir
 

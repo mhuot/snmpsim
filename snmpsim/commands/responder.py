@@ -535,6 +535,12 @@ configured automatically based on simulation data file paths relative to
         snmp_helper.print_usage(sys.stderr)
         return 1
 
+    if args.debug:
+        pysnmp_debug.setLogger(pysnmp_debug.Debug(*args.debug))
+
+    if args.debug_asn1:
+        pyasn1_debug.setLogger(pyasn1_debug.Debug(*args.debug_asn1))
+
     if args.cache_dir:
         confdir.cache = args.cache_dir
 

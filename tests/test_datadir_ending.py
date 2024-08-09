@@ -5,8 +5,6 @@ import time
 from snmpsim.commands.responder import main as responder_main
 import pytest
 from pysnmp.hlapi.asyncio import *
-from pysnmp.hlapi.asyncio.slim import Slim
-from pysnmp import debug
 
 import asyncio
 
@@ -39,7 +37,6 @@ def setup_args():
 @pytest.fixture
 def run_app_in_background():
     def target():
-        # debug.setLogger(debug.Debug("msgproc"))
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         try:
@@ -64,46 +61,6 @@ def run_app_in_background():
 async def test_main_with_specific_args(run_app_in_background, capsys):
     snmpEngine = SnmpEngine()
     try:
-        # Create SNMP GET request v1
-        # with Slim(1) as slim:
-        #     errorIndication, errorStatus, errorIndex, varBinds = await slim.get(
-        #         "public",
-        #         "localhost",
-        #         PORT_NUMBER,
-        #         ObjectType(ObjectIdentity("SNMPv2-MIB", "sysDescr", 0)),
-        #     )
-
-        #     assert errorIndication is None
-        #     assert errorStatus == 0
-        #     assert errorIndex == 0
-        #     assert len(varBinds) == 1
-        #     assert varBinds[0][0].prettyPrint() == "SNMPv2-MIB::sysDescr.0"
-        #     assert (
-        #         varBinds[0][1].prettyPrint()
-        #         == "APC Web/SNMP Management Card (MB:v4.1.0 PF:v6.7.2 PN:apc_hw05_aos_672.bin AF1:v6.7.2 AN1:apc_hw05_rpdu2g_672.bin MN:AP8932 HR:02 SN: 3F503A169043 MD:01/23/2019)"
-        #     )
-        #     assert isinstance(varBinds[0][1], OctetString)
-
-        # # # v2c
-        # with Slim() as slim:
-        #     errorIndication, errorStatus, errorIndex, varBinds = await slim.get(
-        #         "public",
-        #         "localhost",
-        #         PORT_NUMBER,
-        #         ObjectType(ObjectIdentity("SNMPv2-MIB", "sysDescr", 0)),
-        #     )
-
-        #     assert errorIndication is None
-        #     assert errorStatus == 0
-        #     assert errorIndex == 0
-        #     assert len(varBinds) == 1
-        #     assert varBinds[0][0].prettyPrint() == "SNMPv2-MIB::sysDescr.0"
-        #     assert (
-        #         varBinds[0][1].prettyPrint()
-        #         == "APC Web/SNMP Management Card (MB:v4.1.0 PF:v6.7.2 PN:apc_hw05_aos_672.bin AF1:v6.7.2 AN1:apc_hw05_rpdu2g_672.bin MN:AP8932 HR:02 SN: 3F503A169043 MD:01/23/2019)"
-        #     )
-        #     assert isinstance(varBinds[0][1], OctetString)
-
         # v3
         authData = UsmUserData(
             "simulator",

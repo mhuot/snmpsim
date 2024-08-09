@@ -6,7 +6,6 @@ from snmpsim.commands.responder import main as responder_main
 import pytest
 from pysnmp.hlapi.asyncio import *
 from pysnmp.hlapi.asyncio.slim import Slim
-from pysnmp import debug
 
 import asyncio
 
@@ -25,6 +24,7 @@ def setup_args():
         "responder.py",
         f"--data-dir={data_dir}",
         f"--agent-udpv4-endpoint=127.0.0.1:{PORT_NUMBER}",
+        f"--debug=app",
         f"--timeout={TIME_OUT}",
     ]
     # Set sys.argv to your test arguments
@@ -39,7 +39,6 @@ def setup_args():
 @pytest.fixture
 def run_app_in_background():
     def target():
-        debug.setLogger(debug.Debug("app"))
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         try:
