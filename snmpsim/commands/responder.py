@@ -14,7 +14,6 @@ import traceback
 from hashlib import md5
 
 from pyasn1 import debug as pyasn1_debug
-from pyasn1.compat.octets import null
 from pyasn1.type import univ
 from pysnmp import debug as pysnmp_debug
 from pysnmp import error
@@ -769,7 +768,7 @@ configured automatically based on simulation data file paths relative to
                         snmp_engine, v3_context_engine_id
                     )
                     # unregister default context
-                    snmp_context.unregisterContextName(null)
+                    snmp_context.unregisterContextName(b"")
 
                     log.info(
                         "SNMPv3 Context Engine ID: "
