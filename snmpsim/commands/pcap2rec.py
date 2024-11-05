@@ -183,7 +183,7 @@ def main():
         metavar="<URI|PATH>",
         action="append",
         type=str,
-        default=["http://mibs.pysnmp.com/asn1/@mib@"],
+        default=["https://mibs.pysnmp.com/asn1/@mib@"],
         help="One or more URIs pointing to a collection of ASN.1 MIB files."
         'Optional "@mib@" token gets replaced with desired MIB module '
         "name during MIB search.",

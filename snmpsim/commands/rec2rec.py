@@ -181,7 +181,7 @@ def main():
     args = parser.parse_args()
 
     if not args.mib_sources:
-        args.mib_sources = ["http://mibs.pysnmp.com/asn1/@mib@"]
+        args.mib_sources = ["https://mibs.pysnmp.com/asn1/@mib@"]
 
     args.input_files = [
         RECORD_TYPES[args.source_record_type].open(x) for x in args.input_files
