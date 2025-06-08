@@ -12,7 +12,10 @@ import stat
 from pyasn1.type import univ
 from pysnmp.carrier.asyncio.dgram import udp
 from pysnmp.carrier.asyncio.dgram import udp6
-from pysnmp.carrier.asyncio.dgram import unix
+try:
+    from pysnmp.carrier.asyncio.dgram import unix
+except ImportError:
+    unix = None  # Unix transport not available in modern pysnmp
 from pysnmp.proto import rfc1902
 from pysnmp.smi import exval
 from pysnmp.smi.error import MibOperationError
